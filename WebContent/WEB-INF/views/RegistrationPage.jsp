@@ -20,27 +20,6 @@
 		<% if (request.getAttribute("errorMessage") != null) {%>
 			<p style="color: red;"><%= request.getAttribute("errorMessage") %></p>
 		<% } %>
-<%-- 		<form action="${pageContext.request.contextPath}/registerUser" method="post"> --%>
-<!-- 			<table> -->
-<!-- 				<tr> -->
-<!-- 					<td><label>Member Name: </label></td> -->
-<!-- 					<td><input name="name" /></td> -->
-<!-- 				</tr> -->
-<!-- 				<tr> -->
-<!-- 					<td><label>Password: </label></td> -->
-<!-- 					<td><input name="password" type="password" /></td> -->
-<!-- 				</tr> -->
-<!-- 				<tr> -->
-<!-- 					<td><label>Confirm Password: </label></td> -->
-<!-- 					<td><input name="confirmPassword" type="password" /></td> -->
-<!-- 				</tr> -->
-<!-- 				<tr> -->
-<!-- 					<td><label>Primary User?: </label></td> -->
-<!-- 					<td><input name="primary_contact" /></td> -->
-<!-- 				</tr> -->
-<!-- 			</table> -->
-<!-- 			<div><input type="submit" value="Submit Registration" /></div> -->
-<%-- 		</form> --%>
 
 		<form:form action="${pageContext.request.contextPath}/registerUser" method="post" modelAttribute="user">
 		<fieldset>
@@ -65,6 +44,13 @@
 					<td>
 						<form:input path="firstName" />
 						<p><form:errors path="firstName" class="error" /></p>
+					</td>
+				</tr>
+				<tr>
+					<td><label for="lastName">Last Name</label></td>
+					<td>
+						<form:input path="lastName" />
+						<p><form:errors path="lastName" class="error" /></p>
 					</td>
 				</tr>
 		    	<tr>
