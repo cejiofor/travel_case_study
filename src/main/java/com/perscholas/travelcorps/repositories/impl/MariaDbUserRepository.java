@@ -38,8 +38,14 @@ public class MariaDbUserRepository implements UserRepository {
 		MapSqlParameterSource params = new MapSqlParameterSource();
 		params.addValue("username", user.getUserName());
 		params.addValue("password", user.getPassword());
-		params.addValue("prime_contact", user.getPrimeContact());
-		String createUserSql = "insert into users (username, password, prime_contact) values (:username, :password, :prime_contact)";		
+		params.addValue("firstName", user.getFirstName());
+		params.addValue("lastName", user.getLastName());
+		params.addValue("address", user.getAddress());
+		params.addValue("city", user.getAddress());
+		params.addValue("state", user.getPassword());
+		params.addValue("country", user.getPassword());
+		params.addValue("isVolunteer", user.getIsVolunteer());
+		String createUserSql = "insert into users (username, password, firstName, lastName, address, city, state, country, isVolunteer) values (:username, :password, :firstName, :lastName, :address, :city, :state, :country, :isVolunteer)";		
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		Integer createResult = mariaDbJdbcTemplate.update(createUserSql, params, keyHolder);
 		if (createResult > 0) {
@@ -84,14 +90,20 @@ public class MariaDbUserRepository implements UserRepository {
 	}
 	
 	@Override
-	public Boolean updateUser(User u) throws SQLException, ClassNotFoundException, IOException{
+	public Boolean updateUser(User user) throws SQLException, ClassNotFoundException, IOException{
 		Integer result;
 		Map<String, Object> params = new HashMap<>();
-		params.put("username", u.getUserName());
-		params.put("password", u.getPassword());
-		params.put("prime_contact", u.getPrimeContact());
-		params.put("user_id", u.getUserId());
-		String updateSql = "update users set username = :username, password = :password, prime_contact = :prime_contact where user_id = :user_id";
+		params.put("username", user.getUserName());
+		params.put("password", user.getPassword());
+		params.put("firstName", user.getFirstName());
+		params.put("lastName", user.getLastName());
+		params.put("address", user.getAddress());
+		params.put("city", user.getAddress());
+		params.put("state", user.getPassword());
+		params.put("country", user.getPassword());
+		params.put("isVolunteer", user.getIsVolunteer());
+		params.put("user_id", user.getUserId());
+		String updateSql = "update users set username = :username, password= :password, firstName = :firstName, lastName = :lastName, address = :address, city = :city, state = :state, country = :country, isVolunteer = :isVolunteer where user_id = :user_id";		
 		result = mariaDbJdbcTemplate.update(updateSql, params);
 		if (result > 0) {
 			return true;
@@ -119,7 +131,13 @@ public class MariaDbUserRepository implements UserRepository {
 			u.setUserId(rs.getInt(1));
 			u.setUserName(rs.getString(2));
 			u.setPassword(rs.getString(3));
-			u.setPrimeContact(rs.getBoolean(4));
+			u.setFirstName(rs.getString(4));
+			u.setLastName(rs.getString(5));
+			u.setAddress(rs.getString(6));
+			u.setCity(rs.getString(7));
+			u.setState(rs.getString(8));
+			u.setCountry(rs.getString(9));
+			u.setIsVolunteer(rs.getBoolean(10));
 			return u;
 		}
 	}

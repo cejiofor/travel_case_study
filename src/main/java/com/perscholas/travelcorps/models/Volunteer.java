@@ -2,22 +2,28 @@ package com.perscholas.travelcorps.models;
 
 import java.util.List;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class Volunteer extends User {
-	private int volunteerID;
-	private int userId;
+	@Id
+	@GeneratedValue
+	private int volunteerId;
+	
+	@NotNull
 	private List<String> skills;
 	
 	public Volunteer() {
 		super();
 	}
 	
-	public Volunteer(int volunteerID, int userId, List<String> skills) {
+	public Volunteer(int volunteerId, int userId, List<String> skills) {
 		super();
-		this.volunteerID = volunteerID;
-		this.userId = userId;
+		this.volunteerId = volunteerId;
+		this.setUserId(userId);
 		this.skills = skills;
 	}
 
@@ -30,21 +36,21 @@ public class Volunteer extends User {
 		this.skills = skills;
 	}
 	
-	public int getVolunteerID() {
-		return volunteerID;
+	public int getVolunteerId() {
+		return volunteerId;
 	}
 
-	public void setVolunteerID(int volunteerID) {
-		this.volunteerID = volunteerID;
+	public void setVolunteerId(int volunteerId) {
+		this.volunteerId = volunteerId;
 	}
 
-	public int getUserId() {
-		return userId;
-	}
-
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
+//	public int getUserId() {
+//		return userId;
+//	}
+//
+//	public void setUserId(int userId) {
+//		this.userId = userId;
+//	}
 
 	public List<String> getSkills() {
 		return skills;
@@ -56,7 +62,7 @@ public class Volunteer extends User {
 
 	@Override
 	public String toString() {
-		return "Volunteer [volunteerID=" + volunteerID + ", userId=" + userId + ", skills=" + skills
+		return "Volunteer [volunteerId=" + volunteerId + ", userId=" + getUserId() + ", skills=" + skills
 				+ ", getUserName()=" + getUserName() + ", getPassword()=" + getPassword() + ", getFirstName()="
 				+ getFirstName() + ", getLastName()=" + getLastName() + ", getAddress()=" + getAddress()
 				+ ", getCity()=" + getCity() + ", getState()=" + getState() + ", getCountry()=" + getCountry()

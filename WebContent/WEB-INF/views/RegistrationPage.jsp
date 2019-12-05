@@ -21,7 +21,7 @@
 			<p style="color: red;"><%= request.getAttribute("errorMessage") %></p>
 		<% } %>
 
-		<form:form action="${pageContext.request.contextPath}/registerUser" method="post" modelAttribute="user">
+		<form:form action="${pageContext.request.contextPath}/registerUser" method="post" modelAttribute="volunteer">
 		<fieldset>
 		    <legend>Register User</legend>
 		    <table>
@@ -53,16 +53,54 @@
 						<p><form:errors path="lastName" class="error" /></p>
 					</td>
 				</tr>
-		    	<tr>
-					<td><label for="primeContact">Prime Contact</label></td>
-			        <td>
-					    <form:select path="primeContact">
-			                <form:option value="true">Yes</form:option>
-			                <form:option selected="selected" value="false">No</form:option>
-			            </form:select>	
-					    <p><form:errors path="primeContact" class="error" /></p>
-			        </td>
-		    	</tr>
+				<tr>
+					<td><label for="address">Address</label></td>
+					<td>
+						<form:input path="address" />
+						<p><form:errors path="address" class="error" /></p>
+					</td>
+				</tr>
+				<tr>
+					<td><label for="city">City</label></td>
+					<td>
+						<form:input path="city" />
+						<p><form:errors path="city" class="error" /></p>
+					</td>
+				</tr>
+				<tr>
+					<td><label for="state">State</label></td>
+					<td>
+						<form:input path="state" />
+						<p><form:errors path="state" class="error" /></p>
+					</td>
+				</tr>
+				<tr>
+					<td><label for="country">Country</label></td>
+					<td>
+						<form:input path="country" />
+						<p><form:errors path="country" class="error" /></p>
+					</td>
+				</tr>
+				<tr>
+					<td><label for="skills">Please Select Skills</label></td>
+					<td>
+						<form:select path="skills">
+						    <form:option value="Advertising"/>
+						    <form:option value="Coding"/>
+						    <form:option value="Design"/>
+						    <form:option value="Teaching"/>
+						    <form:option value="Translation"/>
+						</form:select>
+						<p><form:errors path="skills" class="error" /></p>
+					</td>
+				</tr>
+				<tr style="diplay:none;">
+					<td><label for="isVolunteer">Volunteer Status</label></td>
+					<td>
+						<form:input path="isVolunteer" />
+						<p><form:errors path="isVolunteer" class="error" /></p>
+					</td>
+				</tr>
 		    </table>
 		    <input type="submit" value="Submit Registration">
 		</fieldset>
