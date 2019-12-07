@@ -2,8 +2,6 @@ package com.perscholas.travelcorps.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.http.HttpSession; //TOMACATE HTTPSESSION
 import javax.validation.Valid;
@@ -16,11 +14,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import com.perscholas.travelcorps.models.User;
-import com.perscholas.travelcorps.models.Volunteer;
 import com.perscholas.travelcorps.repositories.UserRepository;
-import com.perscholas.travelcorps.repositories.VolunteerRepository;
 
 @Controller
 @SessionAttributes("user")
@@ -28,16 +25,19 @@ public class UserController {
 	@Autowired
 	private UserRepository userRepository;
 		
-	@GetMapping("/")
-	public String showDefault(Model model) {
+//	@GetMapping("/")
+//	public String showDefault(Model model) {
+//		if (!model.containsAttribute("user")) {
+//			model.addAttribute("user", new User());
+//		}
+//		return "LoginPage";
+//	}
+	
+	@GetMapping("/showLogin")
+	public String showLogin(Model model) {
 		if (!model.containsAttribute("user")) {
 			model.addAttribute("user", new User());
 		}
-		return "LoginPage";
-	}
-	
-	@GetMapping("/showLogin")
-	public String showLogin() {
 		return "LoginPage";
 	}
 		
@@ -68,13 +68,17 @@ public class UserController {
 	
 	@GetMapping("/showWelcome")
 	public String showWelcome(Model model) {
-//		model.addAttribute("user", new User());
+		if (!model.containsAttribute("user")) {
+			model.addAttribute("user", new User());
+		}
 		return "WelcomePage";
 	}
 	
 	@GetMapping("/showRegistration")
 	public String showRegistration(Model model) {
-		model.addAttribute("user", new User());
+		if (!model.containsAttribute("user")) {
+			model.addAttribute("user", new User());
+		}
 		return "RegistrationPage";
 	}
 //	
@@ -101,4 +105,12 @@ public class UserController {
 //		return "redirect:/"; //clears the form, prevent resumbmission of data
 //		//also allows us to perform logic on the the data after submission.
 //	}
+	
+	@GetMapping("/logout")
+	public String logout(Model model, HttpSession session, SessionStatus status) {
+		status.setComplete();
+	    session.removeAttribute("user");
+		return "redirect:/";
+	}
+	 
 }

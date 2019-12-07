@@ -11,17 +11,16 @@
 	<%@ include file="Navigation.html" %>
 	<h1>Volunteer Profile Page</h1>
 	
-	<h2>Username: ${volunteer.username}</h2>
+	<h2>Username: ${volunteer.userName}</h2>
 	<h2>First Name: ${volunteer.firstName}</h2>
-	<h2>Last Name: ${volunteer.firstName}</h2>
-	<h2>Address: ${volunteer.firstName}</h2>
-	<h2>City: ${volunteer.firstName}</h2>
-	<h2>State: ${volunteer.firstName}</h2>
-	<h2>Country: ${volunteer.firstName}</h2>
-	<h2>First Name: ${volunteer.firstName}</h2>
-	<h2>Skills:</h2>
+	<h2>Last Name: ${volunteer.lastName}</h2>
+	<h2>Address: ${volunteer.address}</h2>
+	<h2>City: ${volunteer.city}</h2>
+	<h2>State: ${volunteer.state}</h2>
+	<h2>Country: ${volunteer.country}</h2>
+	<h2>Skills: ${volunteer.skills}</h2>
 	<c:forEach items="${volunteer.skills}" var="skill">
-		<h3>{skill}</h3>
+		<h3>${skill}</h3>
 	</c:forEach>
 	<a href="${pageContext.request.contextPath}/showVolunteerUpdate">Update Volunteer Profile</a> 
 </html>

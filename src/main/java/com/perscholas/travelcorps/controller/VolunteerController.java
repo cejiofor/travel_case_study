@@ -31,14 +31,19 @@ public class VolunteerController {
 	@Autowired
 	private VolunteerRepository volunteerRepository;
 	
-//	@GetMapping("/")
-//	public String showDefault(Model model) {
-//		model.addAttribute("volunteer", new Volunteer());
-//		return "VolunteerLoginPage";
-//	}
+	@GetMapping("/")
+	public String showDefault(Model model) {
+		if (!model.containsAttribute("volunteer")) {
+			model.addAttribute("volunteer", new Volunteer());
+		}
+		return "VolunteerLoginPage";
+	}
 	
 	@GetMapping("/showVolunteerLogin")
-	public String showVolunteerLogin() {
+	public String showVolunteerLogin(Model model) {
+		if (!model.containsAttribute("volunteer")) {
+			model.addAttribute("volunteer", new Volunteer());
+		}
 		return "VolunteerLoginPage";
 	}
 		
@@ -50,6 +55,17 @@ public class VolunteerController {
 		}
 		String testUserName = volunteer.getUserName();
 		String password = volunteer.getPassword();
+		Boolean userExists = true;
+		try {
+			volunteerRepository.getVolunteerByName(testUserName);
+		}
+		catch (NullPointerException e){
+			userExists = false;
+		}
+		if (!userExists) {
+			model.addAttribute("errorMessage", "Invalid User");
+			return "VolunteerLoginPage";
+		}
 		volunteer = volunteerRepository.getVolunteerByName(testUserName);
 		
 		if (volunteer != null) {
@@ -125,6 +141,11 @@ public class VolunteerController {
 		return "VolunteerProfilePage";
 	}
 	
+	@GetMapping("/showVolunteerUpdate")
+	public String showVolunteerUpdate(Model model) {
+		return "UpdateProfile";
+	}
+	
 	@PostMapping("/updateVolunteer")
 	public String updateVolunteer(@Valid @ModelAttribute("volunteer") Volunteer volunteer, BindingResult result, Model model, HttpSession session) throws SQLException, ClassNotFoundException, IOException {
 		Integer userId = volunteer.getUserId();
@@ -142,7 +163,7 @@ public class VolunteerController {
 		Boolean userUpdated = userRepository.updateUser(u);
 		System.out.println("User Update: " + userUpdated);
 		Volunteer v = new Volunteer(userId, userName, password, firstName, lastName, address, city, state, country, isVolunteer, skills);
-		Boolean volunteerUpdated = volunteerRepository.updateVolunteer(v);
+		Boolean volunteerUpdated = volunteerRepository.updateVolunteer(volunteer);
 		System.out.println("Volunteer Update: " + volunteerUpdated);
 		return "redirect:/showWelcome"; 
 	}

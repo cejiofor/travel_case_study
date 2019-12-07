@@ -1,5 +1,6 @@
 package com.perscholas.travelcorps.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.GeneratedValue;
@@ -13,11 +14,12 @@ public class Volunteer extends User {
 	@GeneratedValue
 	private int volunteerId;
 	
-	@NotNull
+//	@NotNull
 	private List<String> skills;
 	
 	public Volunteer() {
 		super();
+		this.skills = new ArrayList<String>();
 	}
 	
 	public Volunteer(int volunteerId, int userId, List<String> skills) {

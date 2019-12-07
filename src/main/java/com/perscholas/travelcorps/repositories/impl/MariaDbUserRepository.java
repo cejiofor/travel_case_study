@@ -41,9 +41,9 @@ public class MariaDbUserRepository implements UserRepository {
 		params.addValue("firstName", user.getFirstName());
 		params.addValue("lastName", user.getLastName());
 		params.addValue("address", user.getAddress());
-		params.addValue("city", user.getAddress());
-		params.addValue("state", user.getPassword());
-		params.addValue("country", user.getPassword());
+		params.addValue("city", user.getCity());
+		params.addValue("state", user.getState());
+		params.addValue("country", user.getCountry());
 		params.addValue("isVolunteer", user.getIsVolunteer());
 		String createUserSql = "insert into users (username, password, first_name, last_name, address, city, state, country, isVolunteer) values (:username, :password, :firstName, :lastName, :address, :city, :state, :country, :isVolunteer)";		
 		KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -98,12 +98,12 @@ public class MariaDbUserRepository implements UserRepository {
 		params.put("firstName", user.getFirstName());
 		params.put("lastName", user.getLastName());
 		params.put("address", user.getAddress());
-		params.put("city", user.getAddress());
-		params.put("state", user.getPassword());
-		params.put("country", user.getPassword());
+		params.put("city", user.getCity());
+		params.put("state", user.getState());
+		params.put("country", user.getCountry());
 		params.put("isVolunteer", user.getIsVolunteer());
 		params.put("user_id", user.getUserId());
-		String updateSql = "update users set username = :username, password= :password, firstName = :firstName, lastName = :lastName, address = :address, city = :city, state = :state, country = :country, isVolunteer = :isVolunteer where user_id = :user_id";		
+		String updateSql = "update users set username = :username, password = :password, first_name = :firstName, last_name = :lastName, address = :address, city = :city, state = :state, country = :country, isVolunteer = :isVolunteer where user_id = :user_id";		
 		result = mariaDbJdbcTemplate.update(updateSql, params);
 		if (result > 0) {
 			return true;

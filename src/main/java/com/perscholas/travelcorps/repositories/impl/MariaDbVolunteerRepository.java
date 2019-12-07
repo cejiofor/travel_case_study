@@ -45,7 +45,6 @@ public class MariaDbVolunteerRepository implements VolunteerRepository {
 		String skillNum = "";
 		String skillAdd = "";
 		String skillParams = "";
-//		params.addValue("volunteer_id", v.getVolunteerId());
 		params.addValue("user_id", v.getUserId());
 		System.out.println(v.toString());
 		List<String> skills = v.getSkills();
@@ -87,6 +86,17 @@ public class MariaDbVolunteerRepository implements VolunteerRepository {
 		{
 			System.out.println(e.getMessage());
 		}
+		Integer userId = volunteer.getUserId();
+		User u = userRepository.getUserById(userId);
+		volunteer.setUserName(u.getUserName());
+		volunteer.setPassword(u.getPassword());
+		volunteer.setFirstName(u.getFirstName());
+		volunteer.setLastName(u.getLastName());
+		volunteer.setAddress(u.getAddress());
+		volunteer.setCity(u.getCity());
+		volunteer.setState(u.getState());
+		volunteer.setCountry(u.getCountry());
+		volunteer.setIsVolunteer(u.getIsVolunteer());
 		return volunteer;
 	}
 	
@@ -107,6 +117,15 @@ public class MariaDbVolunteerRepository implements VolunteerRepository {
 		{
 			System.out.println(e.getMessage());
 		}
+		volunteer.setUserName(username);
+		volunteer.setPassword(u.getPassword());
+		volunteer.setFirstName(u.getFirstName());
+		volunteer.setLastName(u.getLastName());
+		volunteer.setAddress(u.getAddress());
+		volunteer.setCity(u.getCity());
+		volunteer.setState(u.getState());
+		volunteer.setCountry(u.getCountry());
+		volunteer.setIsVolunteer(u.getIsVolunteer());
 		return volunteer;
 	}
 	
@@ -115,13 +134,28 @@ public class MariaDbVolunteerRepository implements VolunteerRepository {
 		Integer result;
 		Map<String, Object> params = new HashMap<>();
 		params.put("volunteer_id", v.getVolunteerId());
-//		params.put("user_id", v.getUserId());
-		params.put("skill1", v.getSkills().get(0));
-		params.put("skill2", v.getSkills().get(1));
-		params.put("skill3", v.getSkills().get(2));
-		params.put("skill4", v.getSkills().get(3));
-		params.put("skill5", v.getSkills().get(4));
-		String updateSql = "update users set skill1 = :skill1, skill2 = :skill2, skill3 = :skill3, skill4 = :skill4, skill5 = :skill5 where volunteer_id = :volunteer_id";
+		String skillNum = "";
+		String skillAdd = "";
+		String skillParams = "";
+		List<String> skills = v.getSkills();
+		for (int i = 0; i<skills.size(); i++) {
+			skillNum = String.format("skill%d", i+1);
+			params.put(skillNum, skills.get(i));
+			if (i == 0) {
+				skillParams = skillParams + skillNum + "= :" + skillNum;
+			}
+			else {
+				skillParams = skillParams+ ", " + skillNum + "= :" + skillNum;
+			}
+			
+		}
+//		params.put("skill1", v.getSkills().get(0));
+//		params.put("skill2", v.getSkills().get(1));
+//		params.put("skill3", v.getSkills().get(2));
+//		params.put("skill4", v.getSkills().get(3));
+//		params.put("skill5", v.getSkills().get(4));
+//		String updateSql = "update volunteers set skill1 = :skill1, skill2 = :skill2, skill3 = :skill3, skill4 = :skill4, skill5 = :skill5 where volunteer_id = :volunteer_id";
+		String updateSql = "update volunteers set "+skillParams+" where volunteer_id = :volunteer_id";
 		result = mariaDbJdbcTemplate.update(updateSql, params);		
 		if (result > 0) {
 			return true;
