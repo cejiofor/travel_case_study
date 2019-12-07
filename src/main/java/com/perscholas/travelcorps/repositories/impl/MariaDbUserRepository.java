@@ -45,7 +45,7 @@ public class MariaDbUserRepository implements UserRepository {
 		params.addValue("state", user.getPassword());
 		params.addValue("country", user.getPassword());
 		params.addValue("isVolunteer", user.getIsVolunteer());
-		String createUserSql = "insert into users (username, password, firstName, lastName, address, city, state, country, isVolunteer) values (:username, :password, :firstName, :lastName, :address, :city, :state, :country, :isVolunteer)";		
+		String createUserSql = "insert into users (username, password, first_name, last_name, address, city, state, country, isVolunteer) values (:username, :password, :firstName, :lastName, :address, :city, :state, :country, :isVolunteer)";		
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		Integer createResult = mariaDbJdbcTemplate.update(createUserSql, params, keyHolder);
 		if (createResult > 0) {

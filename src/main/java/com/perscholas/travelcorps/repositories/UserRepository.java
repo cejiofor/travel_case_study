@@ -10,8 +10,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.perscholas.travelcorps.dao.MariaDBConnection;
-import com.perscholas.travelcorps.dao.UserDAO;
 import com.perscholas.travelcorps.models.User;
 
 public interface UserRepository {

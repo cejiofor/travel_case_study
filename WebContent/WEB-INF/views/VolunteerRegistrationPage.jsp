@@ -16,14 +16,11 @@
 		<h1>Registration</h1>
 		<%@ include file="Navigation.html" %>
 		<a href="${pageContext.request.contextPath}/">Cancel</a>
-		
-		<% if (request.getAttribute("errorMessage") != null) {%>
-			<p style="color: red;"><%= request.getAttribute("errorMessage") %></p>
-		<% } %>
 
-		<form:form action="${pageContext.request.contextPath}/registerUser" method="post" modelAttribute="volunteer">
+		<form:form action="${pageContext.request.contextPath}/registerVolunteer" method="post" modelAttribute="volunteer">
 		<fieldset>
 		    <legend>Register User</legend>
+		    <p style="color:red;">${errorMessage}</p>
 		    <table>
 		    	<tr>
 					<td><label for="userName">Username/Email</label></td>

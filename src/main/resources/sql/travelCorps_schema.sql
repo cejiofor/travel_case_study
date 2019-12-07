@@ -14,7 +14,7 @@ CREATE TABLE users (
 	city VARCHAR(100),
 	state VARCHAR(100), 
 	country VARCHAR(100),
-	vol_user BOOL
+	isVolunteer BOOL
 ); 
 
 DROP TABLE IF EXISTS volunteers;

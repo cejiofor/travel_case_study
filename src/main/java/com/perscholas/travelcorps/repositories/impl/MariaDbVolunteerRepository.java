@@ -19,12 +19,15 @@ import org.springframework.stereotype.Repository;
 
 import com.perscholas.travelcorps.models.User;
 import com.perscholas.travelcorps.models.Volunteer;
+import com.perscholas.travelcorps.repositories.UserRepository;
 //import com.perscholas.travelcorps.repositories.UserRepository;
 import com.perscholas.travelcorps.repositories.VolunteerRepository;
 
 @Repository("mariaDbsqlIndex = Repository")
-public class MariaDbVolunteerRepository extends MariaDbUserRepository implements VolunteerRepository {
-
+public class MariaDbVolunteerRepository implements VolunteerRepository {
+	@Autowired
+	UserRepository userRepository;
+	
 	@Autowired
 	private NamedParameterJdbcTemplate mariaDbJdbcTemplate;
 	
@@ -39,14 +42,29 @@ public class MariaDbVolunteerRepository extends MariaDbUserRepository implements
 	public Integer registerVolunteer(Volunteer v) throws SQLException, ClassNotFoundException, IOException{
 		Integer id = -1;
 		MapSqlParameterSource params = new MapSqlParameterSource();
-		params.addValue("volunteer_id", v.getVolunteerId());
+		String skillNum = "";
+		String skillAdd = "";
+		String skillParams = "";
+//		params.addValue("volunteer_id", v.getVolunteerId());
 		params.addValue("user_id", v.getUserId());
-		params.addValue("skill1", v.getSkills().get(0));
-		params.addValue("skill2", v.getSkills().get(1));
-		params.addValue("skill3", v.getSkills().get(2));
-		params.addValue("skill4", v.getSkills().get(3));
-		params.addValue("skill5", v.getSkills().get(4));
-		String createUserSql = "insert into volunteers (user_Id, skill1, skill2, skill3, skill4, skill5) values (:user_Id, :skill1, :skill2, :skill3, :skill4, :skill5)";		
+		System.out.println(v.toString());
+		List<String> skills = v.getSkills();
+		System.out.println(skills);
+		for (int i = 0; i<skills.size(); i++) {
+			skillNum = String.format("skill%d", i+1);
+			skillAdd = skillAdd + ", "+skillNum;
+			skillParams = skillParams + ", :" + skillNum;
+			System.out.println(skillNum + "---"+skillAdd+"---"+skillParams);
+			System.out.println(skills.get(i));
+			params.addValue(skillNum, skills.get(i));
+		}
+//		params.addValue("skill1", v.getSkills().get(0));
+//		params.addValue("skill2", v.getSkills().get(1));
+//		params.addValue("skill3", v.getSkills().get(2));
+//		params.addValue("skill4", v.getSkills().get(3));
+//		params.addValue("skill5", v.getSkills().get(4));
+//		String createUserSql = "insert into volunteers (user_Id, skill1, skill2, skill3, skill4, skill5) values (:user_Id, :skill1, :skill2, :skill3, :skill4, :skill5)";
+		String createUserSql = "insert into volunteers (user_id"+skillAdd+") values (:user_id"+skillParams+")";
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		Integer createResult = mariaDbJdbcTemplate.update(createUserSql, params, keyHolder);
 		if (createResult > 0) {
@@ -56,7 +74,7 @@ public class MariaDbVolunteerRepository extends MariaDbUserRepository implements
 	}
 	
 	@Override
-	public User getVolunteerById(int volunteerId) throws ClassNotFoundException, IOException, SQLException{
+	public Volunteer getVolunteerById(int volunteerId) throws ClassNotFoundException, IOException, SQLException{
 		String selectVolunteerById = "select * from volunteers where volunteer_id = :volunteerId";
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("volunteerId", volunteerId);
@@ -74,13 +92,11 @@ public class MariaDbVolunteerRepository extends MariaDbUserRepository implements
 	
 	
 	@Override
-	public User getVolunteerByName(String username) throws ClassNotFoundException, IOException, SQLException{
-		User u = this.getUserByName(username);
+	public Volunteer getVolunteerByName(String username) throws ClassNotFoundException, IOException, SQLException{
+		User u = userRepository.getUserByName(username);
 		Integer id = u.getUserId();
-//		String selectUserByName = "select * from users where username = :username";
 		String selectVolunteerById = "select * from volunteers where user_id = :user_id";
 		Map<String, Object> params = new HashMap<String, Object>();
-//		params.put("username", username);
 		params.put("user_id", id);
 		Volunteer volunteer = null;
 		try

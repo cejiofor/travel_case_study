@@ -1,14 +1,14 @@
-INSERT INTO users (username, PASSWORD, first_name, last_name, address, city, state, country, vol_user) 
+INSERT INTO users (username, PASSWORD, first_name, last_name, address, city, state, country, isVolunteer) 
 	VALUES("jdoe@gmail.com", "password", "John", "Doe", "2130 Regular St", "Chicago", "IL", "USA", TRUE);
-INSERT INTO users (username, PASSWORD, first_name, last_name, address, city, state, country, vol_user) 
+INSERT INTO users (username, PASSWORD, first_name, last_name, address, city, state, country, isVolunteer) 
 	VALUES("janedoe@gmail.com", "password", "Jane", "Doe", "2130 Regular Dr", "Dallas", "TX", "USA", TRUE);
-INSERT INTO users (username, PASSWORD, first_name, last_name, address, city, state, country, vol_user) 
+INSERT INTO users (username, PASSWORD, first_name, last_name, address, city, state, country, isVolunteer) 
 	VALUES("salah@perscholas.org", "password123", "Salah", "Samm", "211 N. Ervay, Suite 700", "Dallas", "TX", "USA", FALSE);
-INSERT INTO users (username, PASSWORD, first_name, last_name, address, city, state, country, vol_user) 
+INSERT INTO users (username, PASSWORD, first_name, last_name, address, city, state, country, isVolunteer) 
 	VALUES("chris@perscholas.org", "password123", "Chris", "Eji", "211 N. Ervay, Suite 700", "Dallas", "TX", "USA", FALSE);
-INSERT INTO users (username, PASSWORD, first_name, last_name, address, city, state, country, vol_user) 
+INSERT INTO users (username, PASSWORD, first_name, last_name, address, city, state, country, isVolunteer) 
 	VALUES("eric@un.org", "password123", "Eric", "Apple", "405 E 42nd St", "New York", "NY", "USA", FALSE);
-INSERT INTO users (username, PASSWORD, first_name, last_name, address, city, state, country, vol_user) 
+INSERT INTO users (username, PASSWORD, first_name, last_name, address, city, state, country, isVolunteer) 
 	VALUES("robert@brac.net", "password123", "Robert", "White", "BRAC Centre, 75 Mohakhali", "Dhaka-1212", "Dhaka", "Bangladesh", FALSE);
 
 INSERT INTO volunteers (user_id, skill1, skill2, skill3) VALUES(1, "Coding", "Teaching", "Design");

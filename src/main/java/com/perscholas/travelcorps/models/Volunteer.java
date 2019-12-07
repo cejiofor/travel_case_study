@@ -44,14 +44,6 @@ public class Volunteer extends User {
 		this.volunteerId = volunteerId;
 	}
 
-//	public int getUserId() {
-//		return userId;
-//	}
-//
-//	public void setUserId(int userId) {
-//		this.userId = userId;
-//	}
-
 	public List<String> getSkills() {
 		return skills;
 	}

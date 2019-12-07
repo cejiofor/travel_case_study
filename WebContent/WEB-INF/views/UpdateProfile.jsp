@@ -1,34 +1,25 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+   
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="ISO-8859-1">
-		<title>Registration Page</title>
-		<style>
-			.error {
-				color: red;
-			}
-		</style>
-	</head>
-	<body>
-		<h1>Registration</h1>
-		<%@ include file="Navigation.html" %>
-		<a href="${pageContext.request.contextPath}/">Cancel</a>
-		
-		<% if (request.getAttribute("errorMessage") != null) {%>
-			<p style="color: red;"><%= request.getAttribute("errorMessage") %></p>
-		<% } %>
-
-		<form:form action="${pageContext.request.contextPath}/registerUser" method="post" modelAttribute="volunteer">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<form:form action="${pageContext.request.contextPath}/updateVolunteer" method="post" modelAttribute="volunteer">
 		<fieldset>
 		    <legend>Register User</legend>
+		    <p style="color:red;">${errorMessage}</p>
 		    <table>
 		    	<tr>
 					<td><label for="userName">Username/Email</label></td>
 			        <td>
-			            <form:input path="userName" />
+			            <form:input path="userName" value="${volunteer.userName}"/>
 			            <p><form:errors path="userName" class="error"/></p>
 					</td>
 			    </tr>
@@ -105,5 +96,5 @@
 		    <input type="submit" value="Submit Registration">
 		</fieldset>
 	    </form:form>
-	</body>
+</body>
 </html>

@@ -7,7 +7,7 @@
 <title>Welcome Page</title>
 </head>
 <body>
-	<h1>Welcome ${user.userName}</h1>
+	<h1>Welcome ${volunteer.userName}</h1>
 	<%@ include file="Navigation.html" %>
 	
 </body>

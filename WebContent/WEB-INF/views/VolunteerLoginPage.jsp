@@ -6,7 +6,7 @@
 <html>
 	<head>
 		<meta charset="ISO-8859-1">
-		<title>Login Page</title>
+		<title>Volunteer Login Page</title>
 		<style>
 		    .error {
 				color: red;
@@ -15,9 +15,9 @@
 	</head>
 	<body>
 		<h1>Welcome to Travel Corps</h1>
-		<form:form action="${pageContext.request.contextPath}/loginUser" method="post" modelAttribute="user">
+		<form:form action="${pageContext.request.contextPath}/loginVolunteer" method="post" modelAttribute="volunteer">
 		<fieldset>
-		    <legend>Login Here</legend>
+		    <legend>Volunteer Login Here</legend>
 		    <p style="color:red;">${errorMessage}</p>
 		    <div>
 				<label for="userName">Username: </label>
@@ -36,8 +36,6 @@
 		    <input type="submit" value="Login">
 		</fieldset>
 		</form:form>
-		<a href="${pageContext.request.contextPath}/showRegistration">Partners Register Here</a>
-		<a href="${pageContext.request.contextPath}/volunteerRegistration">Volunteers Register Here</a>
-	
+		<a href="${pageContext.request.contextPath}/volunteerRegistration">Register Here</a>
 	</body>
 </html>
