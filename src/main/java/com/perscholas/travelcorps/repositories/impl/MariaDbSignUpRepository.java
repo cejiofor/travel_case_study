@@ -20,100 +20,26 @@ import org.springframework.stereotype.Repository;
 import com.perscholas.travelcorps.models.OrganizationUser;
 import com.perscholas.travelcorps.models.User;
 import com.perscholas.travelcorps.models.Volunteer;
-import com.perscholas.travelcorps.repositories.OrgUserRepository;
+import com.perscholas.travelcorps.repositories.SignUpRepository;
 import com.perscholas.travelcorps.repositories.UserRepository;
 
-//@Repository("mariaDbsqlIndex = Repository")
-@Repository("mariaDbOrgUserRepository")
-public class MariaDbSignUpRepository implements OrgUserRepository {
+@Repository("mariaDbSignUpRepository")
+public class MariaDbSignUpRepository implements SignUpRepository {
 	@Autowired
 	UserRepository userRepository;
 	
 	@Autowired
 	private NamedParameterJdbcTemplate mariaDbJdbcTemplate;
 	
-	
-
 	@Override
-	public List<OrganizationUser> getAllOrgUsers() throws SQLException {
-		String selectOrgUsers = "SELECT * FROM org_users";
-		List<OrganizationUser> result = mariaDbJdbcTemplate.query(selectOrgUsers, new OrgUserMapper());
-		return result;
-	}
-
-	@Override
-	public Integer registerOrgUsers(OrganizationUser orgUser) throws SQLException, ClassNotFoundException, IOException {
-		Integer id = -1;
-		MapSqlParameterSource params = new MapSqlParameterSource();
-		params.addValue("orgUserId", orgUser.getOrgUserId());
-		params.addValue("userId", orgUser.getUserId());
-		params.addValue("orgId",  orgUser.getOrgId());
-		params.addValue("isPrimeContact", orgUser.getIsPrimeContact());
-		String createUserSql = "insert into org_users (org_user_id, user_id, org_id, prime_contact) values (:orgUserId, :userId, :orgId, :isPrimeContact)";		
-		KeyHolder keyHolder = new GeneratedKeyHolder();
-		Integer createResult = mariaDbJdbcTemplate.update(createUserSql, params, keyHolder);
-		if (createResult > 0) {
-			id = keyHolder.getKey().intValue();
-		}
-		return id;
-	}
-
-	@Override
-	public OrganizationUser getOrgUsersById(int orgUserId) throws ClassNotFoundException, IOException, SQLException {
-		String selectOrgUserById = "select * from org_users where org_user_id = :orgUserId";
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("orgUserId", orgUserId);
-		OrganizationUser orgUser = null;
-		try
-		{
-			orgUser = (OrganizationUser)mariaDbJdbcTemplate.queryForObject(selectOrgUserById, params, new OrgUserMapper());
-		}
-		catch (EmptyResultDataAccessException e)
-		{
-			System.out.println(e.getMessage());
-		}
-		return orgUser;
-	}
-
-	@Override
-	public OrganizationUser getOrgUsersByName(String name) throws ClassNotFoundException, IOException, SQLException {
-		User u = userRepository.getUserByName(name);
-		Integer id = u.getUserId();
-		String selectOrgUserById = "select * from org_users where user_id = :user_id";
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("user_id", id);
-		OrganizationUser orgUser = null;
-		try
-		{
-			orgUser = (OrganizationUser)mariaDbJdbcTemplate.queryForObject(selectOrgUserById, params, new OrgUserMapper());
-			
-		}
-		catch (EmptyResultDataAccessException e)
-		{
-			System.out.println(e.getMessage());
-		}
-		orgUser.setUserName(name);
-		orgUser.setPassword(u.getPassword());
-		orgUser.setFirstName(u.getFirstName());
-		orgUser.setLastName(u.getLastName());
-		orgUser.setAddress(u.getAddress());
-		orgUser.setCity(u.getCity());
-		orgUser.setState(u.getState());
-		orgUser.setCountry(u.getCountry());
-		orgUser.setIsVolunteer(u.getIsVolunteer());
-		return orgUser;
-	}
-
-	@Override
-	public Boolean updateOrgUsers(OrganizationUser orgUser) throws SQLException, ClassNotFoundException, IOException {
+	public Boolean signUpForProject(Integer volunteerId, Integer projectId)
+			throws SQLException, ClassNotFoundException, IOException {
 		Integer result;
 		Map<String, Object> params = new HashMap<>();
-		params.put("orgUserId", orgUser.getOrgUserId());
-		params.put("userId", orgUser.getUserId());
-		params.put("orgId",  orgUser.getOrgId());
-		params.put("isPrimeContact", orgUser.getIsPrimeContact());
-		String updateSql = "update org_users set prime_contact = :isPrimeContact where org_user_id = :orgUserId";		
-		result = mariaDbJdbcTemplate.update(updateSql, params);
+		params.put("signups_volunteer_id", volunteerId);
+		params.put("signups_project_id",  projectId);
+		String signUpSql = "insert into project_signups (signups_volunteer_id, signups_project_id) VALUES (:signups_volunteer_id, :signups_project_id)";		
+		result = mariaDbJdbcTemplate.update(signUpSql, params);
 		if (result > 0) {
 			return true;
 		}
@@ -121,11 +47,12 @@ public class MariaDbSignUpRepository implements OrgUserRepository {
 	}
 
 	@Override
-	public Boolean removeOrgUsers(int orgUserId) throws IOException, SQLException {
+	public Boolean cancelProjectSignup(Integer volunteerId, Integer projectId) throws IOException, SQLException {
 		Integer result;
-		String deleteSql = "delete from org_users where org_user_id = :orgUserId";
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("orgUserId", orgUserId);
+		Map<String, Object> params = new HashMap<>();
+		params.put("signups_volunteer_id", volunteerId);
+		params.put("signups_project_id",  projectId);
+		String deleteSql = "delete from project_signups where signups_volunteer_id = :signups_volunteer_id and signups_project_id = :signups_project_id";		
 		result = mariaDbJdbcTemplate.update(deleteSql, params);
 		if (result > 0) {
 			return true;
@@ -133,6 +60,21 @@ public class MariaDbSignUpRepository implements OrgUserRepository {
 		return false;
 	}
 	
+//	@Override
+//	public Boolean updateOrgUsers(OrganizationUser orgUser) throws SQLException, ClassNotFoundException, IOException {
+//		Integer result;
+//		Map<String, Object> params = new HashMap<>();
+//		params.put("orgUserId", orgUser.getOrgUserId());
+//		params.put("userId", orgUser.getUserId());
+//		params.put("orgId",  orgUser.getOrgId());
+//		params.put("isPrimeContact", orgUser.getIsPrimeContact());
+//		String updateSql = "update org_users set prime_contact = :isPrimeContact where org_user_id = :orgUserId";		
+//		result = mariaDbJdbcTemplate.update(updateSql, params);
+//		if (result > 0) {
+//			return true;
+//		}
+//		return false;
+//	}
 	
 	private final class OrgUserMapper implements RowMapper<OrganizationUser> {
 		@Override
@@ -163,7 +105,7 @@ public class MariaDbSignUpRepository implements OrgUserRepository {
 		}
 	}
 	
-	private final class UserMapper implements RowMapper<User> {
+	private final class SignUpMapper implements RowMapper<User> {
 		@Override
 		public User mapRow(ResultSet rs, int rowNum) throws SQLException {
 			User u = new User();

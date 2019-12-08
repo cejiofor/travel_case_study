@@ -117,6 +117,16 @@ public class Project {
 	public void setSkills(List<String> skills) {
 		this.skills = skills;
 	}
+	
+//	public Boolean volunteerIdSignLoop(Integer id) {
+//		
+//		for (Member m : this.eventAttenders) {
+//			if (m.getMemberId() == id) {
+//				return true;
+//			}
+//		}
+//		return false;
+//	}
 
 }
 
