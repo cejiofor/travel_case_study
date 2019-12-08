@@ -25,7 +25,7 @@ import com.perscholas.travelcorps.repositories.UserRepository;
 
 //@Repository("mariaDbsqlIndex = Repository")
 @Repository("mariaDbOrgUserRepository")
-public class MariaDbOrgUserRepository implements OrgUserRepository {
+public class MariaDbSignUpRepository implements OrgUserRepository {
 	@Autowired
 	UserRepository userRepository;
 	

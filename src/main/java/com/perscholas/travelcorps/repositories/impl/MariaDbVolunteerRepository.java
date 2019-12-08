@@ -23,6 +23,7 @@ import com.perscholas.travelcorps.repositories.UserRepository;
 import com.perscholas.travelcorps.repositories.VolunteerRepository;
 
 @Repository("mariaDbsqlIndex = Repository")
+//@Repository("mariaDbVolunteerRepository")
 public class MariaDbVolunteerRepository implements VolunteerRepository {
 	@Autowired
 	UserRepository userRepository;

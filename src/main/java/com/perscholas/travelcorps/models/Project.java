@@ -1,5 +1,6 @@
 package com.perscholas.travelcorps.models;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -14,9 +15,25 @@ public class Project {
 	private List<String> skills;
 
 	public Project() {
+		super();
+		this.skills = new ArrayList<String>();
 	}
 	
-	public Project(int projectID, String projectName, String city, String country, Date startDate, Date endDate, int orgID) {
+	public Project(String projectName, String city, String country, Date startDate, Date endDate, int orgID, List<String> skills) {
+		super();
+		this.projectName = projectName;
+		this.city = city;
+		this.country = country;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.orgID = orgID;
+		this.skills = skills;
+		 
+	}
+	
+	public Project(int projectID, String projectName, String city, String country, Date startDate, Date endDate,
+			int orgID, List<String> skills) {
+		super();
 		this.projectID = projectID;
 		this.projectName = projectName;
 		this.city = city;
@@ -24,9 +41,9 @@ public class Project {
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.orgID = orgID;
-		 
+		this.skills = skills;
 	}
-	
+
 	public static java.sql.Date getSqlDate(Date utilDate) {
 		java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 		return sqlDate;

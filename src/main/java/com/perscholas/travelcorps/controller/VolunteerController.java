@@ -34,6 +34,7 @@ public class VolunteerController {
 	@GetMapping("/")
 	public String showDefault(Model model) {
 		if (!model.containsAttribute("volunteer")) {
+			System.out.println("New Volunteer Object");
 			model.addAttribute("volunteer", new Volunteer());
 		}
 		return "VolunteerLoginPage";
@@ -42,6 +43,7 @@ public class VolunteerController {
 	@GetMapping("/showVolunteerLogin")
 	public String showVolunteerLogin(Model model) {
 		if (!model.containsAttribute("volunteer")) {
+			System.out.println("New Volunteer Object");
 			model.addAttribute("volunteer", new Volunteer());
 		}
 		return "VolunteerLoginPage";
@@ -86,13 +88,19 @@ public class VolunteerController {
 	
 	@GetMapping("/showVolunteerwWelcome")
 	public String showVolunteerWelcome(Model model) {
-//		model.addAttribute("volunteer", new Volunteer());
+		if (!model.containsAttribute("volunteer")) {
+			System.out.println("New Volunteer Object");
+			model.addAttribute("volunteer", new Volunteer());
+		}
 		return "WelcomePage";
 	}
 	
 	@GetMapping("/volunteerRegistration")
 	public String volunteerRegistration(Model model) {
-		model.addAttribute("volunteer", new Volunteer());
+		if (!model.containsAttribute("volunteer")) {
+			System.out.println("New Volunteer Object");
+			model.addAttribute("volunteer", new Volunteer());
+		}
 		return "VolunteerRegistrationPage";
 	}
 	

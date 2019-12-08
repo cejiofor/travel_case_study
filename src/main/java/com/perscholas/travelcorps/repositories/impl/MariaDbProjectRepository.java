@@ -22,7 +22,8 @@ import com.perscholas.travelcorps.models.User;
 import com.perscholas.travelcorps.repositories.OrgRepository;
 import com.perscholas.travelcorps.repositories.ProjectRepository;
 
-@Repository("mariaDbsqlIndex = Repository")
+//@Repository("mariaDbsqlIndex = Repository")
+@Repository("mariaDbProjectRepository")
 public class MariaDbProjectRepository implements ProjectRepository {
 	@Autowired
 	private NamedParameterJdbcTemplate mariaDbJdbcTemplate;
