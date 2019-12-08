@@ -27,12 +27,12 @@ public class Project {
 		 
 	}
 	
-	public java.sql.Date getSqlDate(Date utilDate) {
+	public static java.sql.Date getSqlDate(Date utilDate) {
 		java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 		return sqlDate;
 	}
 	
-	public java.util.Date getUtilDate(java.sql.Date sqlDate){
+	public static java.util.Date getUtilDate(java.sql.Date sqlDate){
 		java.util.Date utilDate = new java.util.Date(sqlDate.getTime());
 		return utilDate;
 	}

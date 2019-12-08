@@ -20,7 +20,6 @@ import org.springframework.stereotype.Repository;
 import com.perscholas.travelcorps.models.User;
 import com.perscholas.travelcorps.models.Volunteer;
 import com.perscholas.travelcorps.repositories.UserRepository;
-//import com.perscholas.travelcorps.repositories.UserRepository;
 import com.perscholas.travelcorps.repositories.VolunteerRepository;
 
 @Repository("mariaDbsqlIndex = Repository")

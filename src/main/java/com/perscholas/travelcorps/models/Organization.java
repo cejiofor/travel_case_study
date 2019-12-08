@@ -11,7 +11,7 @@ public class Organization{
 	private String email;
 	private String address;
 	private int primeContactId;
-	private List<Project> projects;
+	private List<Integer> projects;
 	
 	public Organization() {
 		super();
@@ -25,7 +25,7 @@ public class Organization{
 		this.email = email;
 		this.address = address;
 		this.primeContactId = primeContactId;
-		this.projects = new ArrayList<Project>();
+		this.projects = new ArrayList<Integer>();
 	}
 
 	public Organization(int orgID, String orgName, String website, String mission, String email, String address,
@@ -96,11 +96,11 @@ public class Organization{
 		this.primeContactId = primeContactId;
 	}
 
-	public List<Project> getProjects() {
+	public List<Integer> getProjects() {
 		return projects;
 	}
 
-	public void setProjects(List<Project> projects) {
+	public void setProjects(List<Integer> projects) {
 		this.projects = projects;
 	}
 

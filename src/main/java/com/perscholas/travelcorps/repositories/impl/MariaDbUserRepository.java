@@ -114,7 +114,7 @@ public class MariaDbUserRepository implements UserRepository {
 	@Override
 	public Boolean removeUser(int userId) throws IOException, SQLException{
 		Integer result;
-		String deleteSql = "delete from susers where user_id = :user_id";
+		String deleteSql = "delete from users where user_id = :user_id";
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("user_id", userId);
 		result = mariaDbJdbcTemplate.update(deleteSql, params);
