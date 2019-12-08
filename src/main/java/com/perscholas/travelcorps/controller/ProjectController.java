@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.perscholas.travelcorps.models.Project;
+import com.perscholas.travelcorps.models.User;
 import com.perscholas.travelcorps.models.Volunteer;
 import com.perscholas.travelcorps.repositories.ProjectRepository;
 import com.perscholas.travelcorps.repositories.SignUpRepository;
@@ -32,13 +34,6 @@ public class ProjectController {
 	@Autowired 
 	private SignUpRepository signUpRepository;
 	
-	@GetMapping("/showAllProjects")
-	public String showAllProjects(Model model) throws SQLException {
-		List<Project> projectList = projectRepository.getAllProjects();
-		model.addAttribute("projectList", projectList);
-		return "ProjectsPage";
-	}
-	
 	@GetMapping("/showProjects")
 	public String showProjects(Model model) throws SQLException {
 		List<Project> projectList = new ArrayList<Project>();
@@ -52,6 +47,29 @@ public class ProjectController {
 		return "ProjectsPage";
 	}
 	
+	@PostMapping("/createProject")
+	public String createProject(@Valid @ModelAttribute("project") Project project, BindingResult result, Model model, HttpSession session) throws SQLException, ClassNotFoundException, IOException {
+//		Integer userId = volunteer.getUserId();
+//		String userName = volunteer.getUserName();
+//		String password = volunteer.getPassword();
+//		String firstName = volunteer.getFirstName();
+//		String lastName = volunteer.getLastName();
+//		String address = volunteer.getAddress();
+//		String city = volunteer.getCity();
+//		String state = volunteer.getState();
+//		String country = volunteer.getCountry();
+//		Boolean isVolunteer = volunteer.getIsVolunteer();
+//		List<String> skills = volunteer.getSkills();
+//		User u = new User(userId, userName, password, firstName, lastName, address, city, state, country, isVolunteer);
+//		Boolean userUpdated = userRepository.updateUser(u);
+//		System.out.println("User Update: " + userUpdated);
+//		Volunteer v = new Volunteer(userId, userName, password, firstName, lastName, address, city, state, country, isVolunteer, skills);
+//		Boolean volunteerUpdated = volunteerRepository.updateVolunteer(volunteer);
+//		System.out.println("Volunteer Update: " + volunteerUpdated);
+//		return "redirect:/showWelcome"; 
+		return null;
+	}
+	
 	@GetMapping("/showProject")
 	public String showProject(@Valid @ModelAttribute("project") Project project, BindingResult result, Model model, @RequestParam Integer volunteerId, @RequestParam Integer projectId) throws ClassNotFoundException, SQLException, IOException{
 		List<Project> projectList = new ArrayList<Project>();
@@ -63,6 +81,29 @@ public class ProjectController {
 		}
 		model.addAttribute("projectList", projectList);
 		return "ProjectPage";
+	}
+	
+	@PostMapping("/updateProject")
+	public String updateProject(@Valid @ModelAttribute("project") Project project, BindingResult result, Model model, HttpSession session) throws SQLException, ClassNotFoundException, IOException {
+//		Integer userId = volunteer.getUserId();
+//		String userName = volunteer.getUserName();
+//		String password = volunteer.getPassword();
+//		String firstName = volunteer.getFirstName();
+//		String lastName = volunteer.getLastName();
+//		String address = volunteer.getAddress();
+//		String city = volunteer.getCity();
+//		String state = volunteer.getState();
+//		String country = volunteer.getCountry();
+//		Boolean isVolunteer = volunteer.getIsVolunteer();
+//		List<String> skills = volunteer.getSkills();
+//		User u = new User(userId, userName, password, firstName, lastName, address, city, state, country, isVolunteer);
+//		Boolean userUpdated = userRepository.updateUser(u);
+//		System.out.println("User Update: " + userUpdated);
+//		Volunteer v = new Volunteer(userId, userName, password, firstName, lastName, address, city, state, country, isVolunteer, skills);
+//		Boolean volunteerUpdated = volunteerRepository.updateVolunteer(volunteer);
+//		System.out.println("Volunteer Update: " + volunteerUpdated);
+//		return "redirect:/showWelcome"; 
+		return null;
 	}
 	
 	@GetMapping("/projectSignUp")

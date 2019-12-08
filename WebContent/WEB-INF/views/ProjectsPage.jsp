@@ -12,6 +12,8 @@
 	</head>
 	<body>
 		<h1>Projects for ${volunteer.userName}</h1>
+		<p>Test ${volunteer.volunteerId}</p>
+		
 		<%@ include file="Navigation.html" %>
 		<table class="sorttable">
 			<tr>
@@ -56,7 +58,7 @@
 <%-- 							</c:otherwise> --%>
 <%-- 			      		</c:choose> --%>
 			      		<c:choose>
-							<c:when test="${event.attendersContainsIdLoop(currentMember.memberId)}">
+							<c:when test="${project.volunteerIdSignLoop(volunteer.volunteerId)}">
 								<a href="${pageContext.request.contextPath}/cancelSignup?volunteerId=${volunteer.volunteerId}&projectId=${project.projectID}">Cancel</a>
 							</c:when>
 							<c:otherwise>

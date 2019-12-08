@@ -1,8 +1,14 @@
 package com.perscholas.travelcorps.models;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.perscholas.travelcorps.repositories.SignUpRepository;
 
 public class Project {
 	private int projectID;
@@ -13,6 +19,9 @@ public class Project {
 	private Date endDate;
 	private int orgID;
 	private List<String> skills;
+	
+	@Autowired
+	SignUpRepository signUpRepository;
 
 	public Project() {
 		super();
@@ -118,15 +127,23 @@ public class Project {
 		this.skills = skills;
 	}
 	
-//	public Boolean volunteerIdSignLoop(Integer id) {
-//		
-//		for (Member m : this.eventAttenders) {
-//			if (m.getMemberId() == id) {
-//				return true;
-//			}
-//		}
-//		return false;
-//	}
+	public Boolean volunteerIdSignLoop(Integer volunteerId) throws ClassNotFoundException, SQLException, IOException {
+		List<Integer> volunteerSignUps = new ArrayList<Integer>();
+		try{
+			volunteerSignUps = signUpRepository.getVolunteerSignUps(this.projectID);
+		}
+		catch(Exception e) {
+			System.out.println("Not Working: "+e.getMessage());
+		}
+		if (volunteerSignUps != null) {
+			for (Integer volId : volunteerSignUps) {
+				if (volId == volunteerId) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 
 }
 

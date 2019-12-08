@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Member Profile Page</title>
+<title>Volunteer Profile Page</title>
 </head>
 <body>
 	<%@ include file="Navigation.html" %>

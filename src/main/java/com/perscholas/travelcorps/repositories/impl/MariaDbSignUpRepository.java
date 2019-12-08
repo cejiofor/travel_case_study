@@ -32,6 +32,15 @@ public class MariaDbSignUpRepository implements SignUpRepository {
 	private NamedParameterJdbcTemplate mariaDbJdbcTemplate;
 	
 	@Override
+	public List<Integer> getVolunteerSignUps(Integer projectId) throws SQLException, ClassNotFoundException, IOException {
+			Map<String, Object> params = new HashMap<>();
+			params.put("signups_project_id",  projectId);
+			String selectProjectVolunteers = "select signups_volunteer_id FROM project_signups where signups_project_id = :signups_project_id)";		
+			List<Integer> result = mariaDbJdbcTemplate.query(selectProjectVolunteers, new IntegerMapper());
+			return result;
+	}
+	
+	@Override
 	public Boolean signUpForProject(Integer volunteerId, Integer projectId)
 			throws SQLException, ClassNotFoundException, IOException {
 		Integer result;
@@ -105,21 +114,10 @@ public class MariaDbSignUpRepository implements SignUpRepository {
 		}
 	}
 	
-	private final class SignUpMapper implements RowMapper<User> {
+	private final class IntegerMapper implements RowMapper<Integer> {
 		@Override
-		public User mapRow(ResultSet rs, int rowNum) throws SQLException {
-			User u = new User();
-			u.setUserId(rs.getInt(1));
-			u.setUserName(rs.getString(2));
-			u.setPassword(rs.getString(3));
-			u.setFirstName(rs.getString(4));
-			u.setLastName(rs.getString(5));
-			u.setAddress(rs.getString(6));
-			u.setCity(rs.getString(7));
-			u.setState(rs.getString(8));
-			u.setCountry(rs.getString(9));
-			u.setIsVolunteer(rs.getBoolean(10));
-			return u;
+		public Integer mapRow(ResultSet rs, int rowNum) throws SQLException {
+			return rs.getInt(1);
 		}
 	}
 
