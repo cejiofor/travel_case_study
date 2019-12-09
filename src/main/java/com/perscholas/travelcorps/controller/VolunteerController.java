@@ -140,8 +140,7 @@ public class VolunteerController {
 		Integer volunteerId = volunteerRepository.registerVolunteer(v);
 		System.out.println(volunteerId);
 		volunteer.setVolunteerId(volunteerId);
-		return "redirect:/"; //clears the form, prevent resubmission of data
-		//also allows us to perform logic on the the data after submission.
+		return "redirect:/showVolunteerLogin";
 	}
 	
 	@GetMapping("/showVolunteerProfile")
@@ -151,11 +150,12 @@ public class VolunteerController {
 	
 	@GetMapping("/showVolunteerUpdate")
 	public String showVolunteerUpdate(Model model) {
-		return "UpdateProfile";
+		return "VolunteerUpdateProfile";
 	}
 	
 	@PostMapping("/updateVolunteer")
 	public String updateVolunteer(@Valid @ModelAttribute("volunteer") Volunteer volunteer, BindingResult result, Model model, HttpSession session) throws SQLException, ClassNotFoundException, IOException {
+//		Integer volunteerId = volunteer.getVolunteerId();
 		Integer userId = volunteer.getUserId();
 		String userName = volunteer.getUserName();
 		String password = volunteer.getPassword();
@@ -166,24 +166,24 @@ public class VolunteerController {
 		String state = volunteer.getState();
 		String country = volunteer.getCountry();
 		Boolean isVolunteer = volunteer.getIsVolunteer();
-		List<String> skills = volunteer.getSkills();
+//		List<String> skills = volunteer.getSkills();
 		User u = new User(userId, userName, password, firstName, lastName, address, city, state, country, isVolunteer);
 		Boolean userUpdated = userRepository.updateUser(u);
 		System.out.println("User Update: " + userUpdated);
-		Volunteer v = new Volunteer(userId, userName, password, firstName, lastName, address, city, state, country, isVolunteer, skills);
+//		Volunteer v = new Volunteer(volunteerId, userId, userName, password, firstName, lastName, address, city, state, country, isVolunteer, skills);
 		Boolean volunteerUpdated = volunteerRepository.updateVolunteer(volunteer);
 		System.out.println("Volunteer Update: " + volunteerUpdated);
-		return "redirect:/showWelcome"; 
+		return "redirect:/showVolunteerProfile"; 
 	}
 	
-//	@PostMapping("/removeVolunteer")
-//	public String removeVolunteer(@Valid @ModelAttribute("volunteer") Volunteer volunteer, BindingResult result, Model model, HttpSession session) throws SQLException, ClassNotFoundException, IOException {
-//		Integer volunteerId = volunteer.getVolunteerId();
-//		Integer userId = volunteer.getUserId();
-//		Boolean userRemoved = userRepository.removeUser(userId);
-//		System.out.println("User Removed: " + userRemoved);
-//		Boolean volunteerRemoved = volunteerRepository.removeVolunteer(volunteerId);
-//		System.out.println("Volunteer Update: " + volunteerRemoved);
-//		return "redirect:/"; 
-//	}
+	@PostMapping("/removeVolunteer")
+	public String removeVolunteer(@Valid @ModelAttribute("volunteer") Volunteer volunteer, BindingResult result, Model model, HttpSession session) throws SQLException, ClassNotFoundException, IOException {
+		Integer volunteerId = volunteer.getVolunteerId();
+		Integer userId = volunteer.getUserId();
+		Boolean userRemoved = userRepository.removeUser(userId);
+		System.out.println("User Removed: " + userRemoved);
+		Boolean volunteerRemoved = volunteerRepository.removeVolunteer(volunteerId);
+		System.out.println("Volunteer Removed: " + volunteerRemoved);
+		return "redirect:/"; 
+	}
 }

@@ -38,13 +38,17 @@ public class OrganizationUser extends User {
 		// TODO Auto-generated constructor stub
 	}
 
-	public OrganizationUser(
+	
+
+	public OrganizationUser(int userId,
 			@Size(min = 2, max = 25, message = "Name must be between 2 and 25 characters long.") @NotBlank(message = "User Name is required.") String userName,
 			@Size(min = 8, message = "Password must be at least 8 characters long.") @NotBlank(message = "passoword is required.") String password,
 			String firstName, String lastName, String address, String city, String state, String country,
-			Boolean isVolunteer) {
-		super(userName, password, firstName, lastName, address, city, state, country, isVolunteer);
-		// TODO Auto-generated constructor stub
+			Boolean isVolunteer, int orgId, Boolean isPrimeContact) {
+		super(userId, userName, password, firstName, lastName, address, city, state, country, isVolunteer);
+		this.userId = userId;
+		this.orgId = orgId;
+		this.isPrimeContact = isPrimeContact;
 	}
 
 	public int getOrgUserId() {
