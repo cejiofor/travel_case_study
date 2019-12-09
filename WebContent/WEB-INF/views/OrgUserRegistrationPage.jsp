@@ -13,7 +13,7 @@
 		</style>
 	</head>
 	<body>
-		<h1>Registration</h1>
+		<h1>Partner Registration</h1>
 		<%@ include file="Navigation.html" %>
 		<a href="${pageContext.request.contextPath}/">Cancel</a>
 		
@@ -21,9 +21,9 @@
 			<p style="color: red;"><%= request.getAttribute("errorMessage") %></p>
 		<% } %>
 
-		<form:form action="${pageContext.request.contextPath}/registerUser" method="post" modelAttribute="volunteer">
+		<form:form action="${pageContext.request.contextPath}/registerOrgUser" method="post" modelAttribute="orgUser">
 		<fieldset>
-		    <legend>Register User</legend>
+		    <legend>Register Partner</legend>
 		    <table>
 		    	<tr>
 					<td><label for="userName">Username/Email</label></td>
@@ -82,22 +82,19 @@
 					</td>
 				</tr>
 				<tr>
-					<td><label for="skills">Please Select Skills</label></td>
+					<td><label for="isPrimeContact">Are you the primary contact? </label></td>
 					<td>
 						<form:select path="skills">
-						    <form:option value="Advertising"/>
-						    <form:option value="Coding"/>
-						    <form:option value="Design"/>
-						    <form:option value="Teaching"/>
-						    <form:option value="Translation"/>
+						    <form:option value="True"/>
+						    <form:option value="False"/>
 						</form:select>
-						<p><form:errors path="skills" class="error" /></p>
+						<p><form:errors path="isPrimeContact" class="error" /></p>
 					</td>
 				</tr>
-				<tr style="diplay:none;">
+				<tr style="display:none;">
 					<td><label for="isVolunteer">Volunteer Status</label></td>
 					<td>
-						<form:input path="isVolunteer" value="true"/>
+						<form:input path="isVolunteer" value="false"/>
 						<p><form:errors path="isVolunteer" class="error" /></p>
 					</td>
 				</tr>

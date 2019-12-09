@@ -8,27 +8,41 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Update Partner Profile</title>
 </head>
 <body>
-	<form:form action="${pageContext.request.contextPath}/updateVolunteer" method="post" modelAttribute="volunteer">
+	<form:form action="${pageContext.request.contextPath}/updateOrgUser" method="post" modelAttribute="orgUser">
 		<fieldset>
-		    <legend>Register User</legend>
+		    <legend>Update Partner Profile</legend>
 		    <p style="color:red;">${errorMessage}</p>
-		    <table>
-		    	<tr>
-					<td><label for="userName">Username/Email</label></td>
-			        <td>
-			            <form:input path="userName" value="${volunteer.userName}"/>
-			            <p><form:errors path="userName" class="error"/></p>
+			<table>
+				<tr>
+					<td><label for="orgUserId">OrgUserID</label></td>
+					<td>
+						<form:input path="orgUserId" />
+						<p><form:errors path="orgUserId" class="error"/></p>
 					</td>
-			    </tr>
-		    	<tr>
+				</tr>
+				<tr>
+					<td><label for="userId">UserID</label></td>
+					<td>
+						<form:input path="userId" />
+						<p><form:errors path="userId" class="error"/></p>
+					</td>
+				</tr>
+				<tr>
+					<td><label for="userName">Username/Email</label></td>
+					<td>
+						<form:input path="userName" />
+						<p><form:errors path="userName" class="error"/></p>
+					</td>
+				</tr>
+				<tr>
 					<td><label for="password">Password</label></td>
-			        <td>
-					    <form:input path="password" />
-					    <p><form:errors path="password" class="error" /></p>
-			        </td>
+					<td>
+						<form:input path="password" />
+						<p><form:errors path="password" class="error" /></p>
+					</td>
 				</tr>
 				<tr>
 					<td><label for="firstName">First Name</label></td>
@@ -73,27 +87,24 @@
 					</td>
 				</tr>
 				<tr>
-					<td><label for="skills">Please Select Skills</label></td>
+					<td><label for="isPrimeContact">Are you the primary contact? </label></td>
 					<td>
 						<form:select path="skills">
-						    <form:option value="Advertising"/>
-						    <form:option value="Coding"/>
-						    <form:option value="Design"/>
-						    <form:option value="Teaching"/>
-						    <form:option value="Translation"/>
+							<form:option value="True"/>
+							<form:option value="False"/>
 						</form:select>
-						<p><form:errors path="skills" class="error" /></p>
+						<p><form:errors path="isPrimeContact" class="error" /></p>
 					</td>
 				</tr>
-				<tr style="diplay:none;">
+				<tr style="display:none;">
 					<td><label for="isVolunteer">Volunteer Status</label></td>
 					<td>
-						<form:input path="isVolunteer" value="true"/>
+						<form:input path="isVolunteer" value="false"/>
 						<p><form:errors path="isVolunteer" class="error" /></p>
 					</td>
 				</tr>
-		    </table>
-		    <input type="submit" value="Submit Registration">
+			</table>
+		    <input type="submit" value="Update Profile">
 		</fieldset>
 	    </form:form>
 </body>

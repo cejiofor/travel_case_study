@@ -19,7 +19,7 @@
 
 		<form:form action="${pageContext.request.contextPath}/registerVolunteer" method="post" modelAttribute="volunteer">
 		<fieldset>
-		    <legend>Register User</legend>
+		    <legend>Register Volunteer</legend>
 		    <p style="color:red;">${errorMessage}</p>
 		    <table>
 		    	<tr>
@@ -91,7 +91,7 @@
 						<p><form:errors path="skills" class="error" /></p>
 					</td>
 				</tr>
-				<tr style="diplay:none;">
+				<tr style="display:none;">
 					<td><label for="isVolunteer">Volunteer Status</label></td>
 					<td>
 						<form:input path="isVolunteer" value="true"/>
@@ -99,7 +99,7 @@
 					</td>
 				</tr>
 		    </table>
-		    <input type="submit" value="Submit Registration">
+		    <input type="submit" value="Register Volunteer">
 		</fieldset>
 	    </form:form>
 	</body>
