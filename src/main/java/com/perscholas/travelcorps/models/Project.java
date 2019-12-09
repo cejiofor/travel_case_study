@@ -127,23 +127,23 @@ public class Project {
 		this.skills = skills;
 	}
 	
-	public Boolean volunteerIdSignLoop(Integer volunteerId) throws ClassNotFoundException, SQLException, IOException {
-		List<Integer> volunteerSignUps = new ArrayList<Integer>();
-		try{
-			volunteerSignUps = signUpRepository.getVolunteerSignUps(this.projectID);
-		}
-		catch(Exception e) {
-			System.out.println("Not Working: "+e.getMessage());
-		}
-		if (volunteerSignUps != null) {
-			for (Integer volId : volunteerSignUps) {
-				if (volId == volunteerId) {
-					return true;
-				}
-			}
-		}
-		return false;
-	}
+//	public Boolean volunteerIdSignLoop(Integer volunteerId) throws ClassNotFoundException, SQLException, IOException {
+//		List<Integer> volunteerSignUps = new ArrayList<Integer>();
+//		try{
+//			volunteerSignUps = signUpRepository.getVolunteerSignUps(this.projectID);
+//		}
+//		catch(Exception e) {
+//			System.out.println("Not Working: "+e.getMessage());
+//		}
+//		if (volunteerSignUps != null) {
+//			for (Integer volId : volunteerSignUps) {
+//				if (volId == volunteerId) {
+//					return true;
+//				}
+//			}
+//		}
+//		return false;
+//	}
 
 }
 

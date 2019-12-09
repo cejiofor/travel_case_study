@@ -4,18 +4,24 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<!-- IMPORT CSS FOR PAGE AND NAVIGATION HERE -->
-		
 		<meta charset="ISO-8859-1">
 		<title>Projects Page</title>
 		<script src="${pageContext.request.contextPath}/script/sorttable.js"></script> 
 	</head>
 	<body>
-		<h1>Projects for ${volunteer.userName}</h1>
-		<p>Test ${volunteer.volunteerId}</p>
+		<h1>All Projects</h1>
 		
-		<%@ include file="OrgNavigation.html" %>
-		<%@ include file="VolunteerNavigation.html" %>
+		<c:forEach items="${sessionScope}" var="attr">
+		    ${attr.key}=${attr.value}<br>
+		</c:forEach>
+		<c:choose>
+			<c:when test="${empty sessionScope.volunteer}">
+				<%@ include file="OrgNavigation.html" %>
+	       	</c:when>
+	       	<c:when test="${empty sessionScope.orgUser}">
+	       		<%@ include file="VolunteerNavigation.html" %>
+	       	</c:when>
+       	</c:choose>
 		<table class="sorttable">
 			<tr>
 				<th>Project ID</th>
@@ -59,8 +65,8 @@
 <%-- 							</c:otherwise> --%>
 <%-- 			      		</c:choose> --%>
 			      		<c:choose>
-							<c:when test="${project.volunteerIdSignLoop(volunteer.volunteerId)}">
-								<a href="${pageContext.request.contextPath}/cancelSignup?volunteerId=${volunteer.volunteerId}&projectId=${project.projectID}">Cancel</a>
+							<c:when test="${volunteerMap.get(project.projectID).contains(volunteer.volunteerId)}">
+								<a href="${pageContext.request.contextPath}/cancelSignUp?volunteerId=${volunteer.volunteerId}&projectId=${project.projectID}">Cancel</a>
 							</c:when>
 							<c:otherwise>
 								<a href="${pageContext.request.contextPath}/projectSignUp?volunteerId=${volunteer.volunteerId}&projectId=${project.projectID}">SignUp</a>

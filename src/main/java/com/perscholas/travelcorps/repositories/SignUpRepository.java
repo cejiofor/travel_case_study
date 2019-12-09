@@ -7,7 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 public interface SignUpRepository {
-	public List<Integer> getVolunteerSignUps(Integer projectId) throws SQLException, ClassNotFoundException, IOException;
+	public List<Integer> getVolunteerSignUps(Integer volunteerId) throws SQLException, ClassNotFoundException, IOException;
+	public List<Integer> getProjectVolunteers(Integer projectId) throws SQLException, ClassNotFoundException, IOException;
 	Boolean signUpForProject(Integer volunteerId, Integer projectId) throws SQLException, ClassNotFoundException, IOException;
 	Boolean cancelProjectSignup(Integer volunteerId, Integer projectId) throws IOException, SQLException;
 }

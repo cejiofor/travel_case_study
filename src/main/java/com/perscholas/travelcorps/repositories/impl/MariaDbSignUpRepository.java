@@ -32,11 +32,20 @@ public class MariaDbSignUpRepository implements SignUpRepository {
 	private NamedParameterJdbcTemplate mariaDbJdbcTemplate;
 	
 	@Override
-	public List<Integer> getVolunteerSignUps(Integer projectId) throws SQLException, ClassNotFoundException, IOException {
+	public List<Integer> getVolunteerSignUps(Integer volunteerId) throws SQLException, ClassNotFoundException, IOException {
 			Map<String, Object> params = new HashMap<>();
-			params.put("signups_project_id",  projectId);
-			String selectProjectVolunteers = "select signups_volunteer_id FROM project_signups where signups_project_id = :signups_project_id)";		
-			List<Integer> result = mariaDbJdbcTemplate.query(selectProjectVolunteers, new IntegerMapper());
+			params.put("volunteer_id",  volunteerId);
+			String selectVolunteerProjects = "select signups_project_id FROM project_signups where signups_volunteer_id = :volunteer_id";		
+			List<Integer> result = mariaDbJdbcTemplate.queryForList(selectVolunteerProjects, params, Integer.class);
+			return result;
+	}
+	
+	@Override
+	public List<Integer> getProjectVolunteers(Integer projectId) throws SQLException, ClassNotFoundException, IOException {
+			Map<String, Object> params = new HashMap<>();
+			params.put("project_id",  projectId);
+			String selectProjectVolunteers = "select signups_volunteer_id FROM project_signups where signups_project_id = :project_id";		
+			List<Integer> result = mariaDbJdbcTemplate.queryForList(selectProjectVolunteers, params, Integer.class);
 			return result;
 	}
 	

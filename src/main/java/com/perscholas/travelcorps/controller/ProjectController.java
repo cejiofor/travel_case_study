@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -44,6 +46,22 @@ public class ProjectController {
 			System.out.println(e.getMessage());
 		}
 		model.addAttribute("projectList", projectList);
+		
+		Map<Integer, List<Integer>> volunteerMap = new HashMap<Integer, List<Integer>>();
+		for(Project proj: projectList) {
+			List<Integer> volunteerIDList = new ArrayList<Integer>();
+			try {
+				volunteerIDList = signUpRepository.getProjectVolunteers(proj.getProjectID());
+			}
+			catch(Exception e) {
+				System.out.println(e.getMessage());
+			}
+			System.out.println("VolIds: "+volunteerIDList.toString());
+			volunteerMap.put(proj.getProjectID(), volunteerIDList);
+		}
+		System.out.println(volunteerMap.toString());
+		model.addAttribute("volunteerMap", volunteerMap);
+		
 		return "ProjectsPage";
 	}
 	
@@ -95,6 +113,9 @@ public class ProjectController {
 			System.out.println(e.getMessage());
 		}
 		model.addAttribute("projectList", projectList);
+		
+		
+		
 		return "ProjectPage";
 	}
 	
