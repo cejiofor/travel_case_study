@@ -36,6 +36,6 @@
 		    <input type="submit" value="Login">
 		</fieldset>
 		</form:form>
-		<a href="${pageContext.request.contextPath}/volunteerRegistration">Register Here</a>
+		<a href="${pageContext.request.contextPath}/volunteerRegistration">Volunteer Registration</a>
 	</body>
 </html>

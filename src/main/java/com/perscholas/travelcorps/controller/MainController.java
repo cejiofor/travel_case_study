@@ -12,11 +12,11 @@ import org.springframework.web.bind.support.SessionStatus;
 
 @Controller
 @SessionAttributes
-public class HomeController {		
-//	@GetMapping("/")
-//	public String showDefault(Model model) {
-//		return "SplashPage";
-//	}
+public class MainController {		
+	@GetMapping("/")
+	public String showDefault(Model model) {
+		return "WelcomePage";
+	}
 	
 	@GetMapping("/logout")
 	public String logout(Model model, HttpSession session, SessionStatus status) {

@@ -31,14 +31,14 @@ public class VolunteerController {
 	@Autowired
 	private VolunteerRepository volunteerRepository;
 	
-	@GetMapping("/")
-	public String showDefault(Model model) {
-		if (!model.containsAttribute("volunteer")) {
-			System.out.println("New Volunteer Object");
-			model.addAttribute("volunteer", new Volunteer());
-		}
-		return "VolunteerLoginPage";
-	}
+//	@GetMapping("/")
+//	public String showDefault(Model model) {
+//		if (!model.containsAttribute("volunteer")) {
+//			System.out.println("New Volunteer Object");
+//			model.addAttribute("volunteer", new Volunteer());
+//		}
+//		return "VolunteerLoginPage";
+//	}
 	
 	@GetMapping("/showVolunteerLogin")
 	public String showVolunteerLogin(Model model) {
@@ -73,7 +73,7 @@ public class VolunteerController {
 		if (volunteer != null) {
 			if (volunteer.getPassword().equals(password)) {
 				model.addAttribute("volunteer", volunteer);
-				return "redirect:/showWelcome";
+				return "redirect:/showProjects";
 			}
 			else {
 				model.addAttribute("errorMessage", "Invalid Password");

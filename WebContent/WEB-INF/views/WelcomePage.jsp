@@ -9,9 +9,9 @@
 <title>Welcome Page</title>
 </head>
 <body>
-	<h1>Welcome ${volunteer.userName}</h1>
-	<h1>Welcome ${user.userName}</h1>
-	<%@ include file="Navigation.html" %>
-	
+	<h1>Welcome to Travel Corp!</h1>
+	<h3>Travel with a cause, volunteer abroad!</h3>
+	<a href="${pageContext.request.contextPath}/showVolunteerLogin" >Login/Sign Up as Volunteer</a>
+	<a href="${pageContext.request.contextPath}/showOrgUserLogin" >Login/Sign Up as Organization Partner</a>
 </body>
 </html>

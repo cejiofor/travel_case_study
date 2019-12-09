@@ -84,7 +84,7 @@
 				<tr>
 					<td><label for="isPrimeContact">Are you the primary contact? </label></td>
 					<td>
-						<form:select path="skills">
+						<form:select path="isPrimeContact">
 						    <form:option value="True"/>
 						    <form:option value="False"/>
 						</form:select>

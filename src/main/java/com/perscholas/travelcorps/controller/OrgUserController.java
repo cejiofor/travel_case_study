@@ -43,18 +43,18 @@ public class OrgUserController {
 //		return "LoginPage";
 //	}
 	
-	@GetMapping("/showOrgLogin")
-	public String showOrgLogin(Model model) {
+	@GetMapping("/showOrgUserLogin")
+	public String showOrgUserLogin(Model model) {
 		if (!model.containsAttribute("orgUser")) {
 			model.addAttribute("orgUser", new OrganizationUser());
 		}
-		return "OrgLoginPage";
+		return "OrgUserLoginPage";
 	}
 		
 	@PostMapping("/loginOrgUser")
 	public String loginOrgUser(@Valid @ModelAttribute("orgUser") OrganizationUser orgUser, BindingResult result, Model model, HttpSession session) throws ClassNotFoundException, IOException, SQLException{
 		if (result.hasErrors()) {
-			return "OrgLoginPage";
+			return "OrgUserLoginPage";
 		}
 		String testUserName = orgUser.getUserName();
 		String password = orgUser.getPassword();
@@ -67,33 +67,33 @@ public class OrgUserController {
 		}
 		if (!userExists) {
 			model.addAttribute("errorMessage", "Invalid User");
-			return "VolunteerLoginPage";
+			return "OrgUserLoginPage";
 		}
 		orgUser = orgUserRepository.getOrgUsersByName(testUserName);
 		
 		if (orgUser != null) {
 			if (orgUser.getPassword().equals(password)) {
 				model.addAttribute("orgUser", orgUser);
-				return "redirect:/showWelcome";
+				return "redirect:/showProjects";
 			} 
 			else {
 				model.addAttribute("errorMessage", "Invalid Password");
-				return "OrgLoginPage";
+				return "OrgUserLoginPage";
 			}
 		}
 		else {
 			model.addAttribute("errorMessage", "Invalid User");
-			return "OrgLoginPage";
+			return "OrgUserLoginPage";
 		}
 	}
 	
-	@GetMapping("/showOrgWelcome")
-	public String showOrgWelcome(Model model) {
-		if (!model.containsAttribute("orgUser")) {
-			model.addAttribute("orgUser", new OrganizationUser());
-		}
-		return "WelcomePage";
-	}
+//	@GetMapping("/showOrgWelcome")
+//	public String showOrgWelcome(Model model) {
+//		if (!model.containsAttribute("orgUser")) {
+//			model.addAttribute("orgUser", new OrganizationUser());
+//		}
+//		return "WelcomePage";
+//	}
 	
 	@GetMapping("/orgUserRegistration")
 	public String orgUserRegistration(Model model) {
