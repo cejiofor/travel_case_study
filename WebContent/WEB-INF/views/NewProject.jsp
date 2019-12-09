@@ -8,12 +8,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Project Update</title>
+<title>Create New Project</title>
 </head>
 <body>
-	<form:form action="${pageContext.request.contextPath}/updateProject" method="post" modelAttribute="project">
+	<form:form action="${pageContext.request.contextPath}/createProject" method="post" modelAttribute="project">
 		<fieldset>
-		    <legend>Update Project</legend>
+		    <legend>Create New Project</legend>
 		    <p style="color:red;">${errorMessage}</p>
 		    <table>
 		    	<tr style="diplay:none;">
@@ -73,7 +73,7 @@
 					</td>
 				</tr>
 		    </table>
-		    <input type="submit" value="Update Project">
+		    <input type="submit" value="Create Project">
 		</fieldset>
 	    </form:form>
 </body>

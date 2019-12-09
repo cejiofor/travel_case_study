@@ -3,6 +3,7 @@ package com.perscholas.travelcorps.controller;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -19,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.perscholas.travelcorps.models.Project;
-import com.perscholas.travelcorps.models.User;
 import com.perscholas.travelcorps.models.Volunteer;
 import com.perscholas.travelcorps.repositories.ProjectRepository;
 import com.perscholas.travelcorps.repositories.SignUpRepository;
@@ -47,27 +47,42 @@ public class ProjectController {
 		return "ProjectsPage";
 	}
 	
+	@GetMapping("/projectCreation")
+	public String projectCreation(Model model) {
+		if(!model.containsAttribute("project")) {
+			model.addAttribute("project", new Project());
+		}
+		return "NewProject";
+	}
+	
 	@PostMapping("/createProject")
 	public String createProject(@Valid @ModelAttribute("project") Project project, BindingResult result, Model model, HttpSession session) throws SQLException, ClassNotFoundException, IOException {
-//		Integer userId = volunteer.getUserId();
-//		String userName = volunteer.getUserName();
-//		String password = volunteer.getPassword();
-//		String firstName = volunteer.getFirstName();
-//		String lastName = volunteer.getLastName();
-//		String address = volunteer.getAddress();
-//		String city = volunteer.getCity();
-//		String state = volunteer.getState();
-//		String country = volunteer.getCountry();
-//		Boolean isVolunteer = volunteer.getIsVolunteer();
-//		List<String> skills = volunteer.getSkills();
-//		User u = new User(userId, userName, password, firstName, lastName, address, city, state, country, isVolunteer);
-//		Boolean userUpdated = userRepository.updateUser(u);
-//		System.out.println("User Update: " + userUpdated);
-//		Volunteer v = new Volunteer(userId, userName, password, firstName, lastName, address, city, state, country, isVolunteer, skills);
-//		Boolean volunteerUpdated = volunteerRepository.updateVolunteer(volunteer);
-//		System.out.println("Volunteer Update: " + volunteerUpdated);
-//		return "redirect:/showWelcome"; 
-		return null;
+		if (result.hasErrors()) {
+			System.out.println("Not Working!!!");
+			return "NewProject";
+		}
+		String projectName = project.getProjectName();
+		Boolean projectExists = true;
+		try {
+			projectRepository.getProjectByName(projectName);
+		}
+		catch (NullPointerException e){
+			projectExists = false;
+		}
+		if (projectExists) {
+			model.addAttribute("errorMessage", "Project Already Exists");
+			return "NewProject";
+		}
+		String city = project.getCity();
+		String country = project.getCountry();
+		Date startDate = project.getStartDate();
+		Date endDate = project.getEndDate();
+		Integer orgID = project.getOrgID();
+		List<String> skills = project.getSkills();
+		Project p = new Project(projectName, city, country, startDate, endDate, orgID, skills);
+		Integer id = projectRepository.registerProjects(p);
+		project.setProjectID(id);
+		return "redirect:/showProjects"; 
 	}
 	
 	@GetMapping("/showProject")
@@ -85,25 +100,18 @@ public class ProjectController {
 	
 	@PostMapping("/updateProject")
 	public String updateProject(@Valid @ModelAttribute("project") Project project, BindingResult result, Model model, HttpSession session) throws SQLException, ClassNotFoundException, IOException {
-//		Integer userId = volunteer.getUserId();
-//		String userName = volunteer.getUserName();
-//		String password = volunteer.getPassword();
-//		String firstName = volunteer.getFirstName();
-//		String lastName = volunteer.getLastName();
-//		String address = volunteer.getAddress();
-//		String city = volunteer.getCity();
-//		String state = volunteer.getState();
-//		String country = volunteer.getCountry();
-//		Boolean isVolunteer = volunteer.getIsVolunteer();
-//		List<String> skills = volunteer.getSkills();
-//		User u = new User(userId, userName, password, firstName, lastName, address, city, state, country, isVolunteer);
-//		Boolean userUpdated = userRepository.updateUser(u);
-//		System.out.println("User Update: " + userUpdated);
-//		Volunteer v = new Volunteer(userId, userName, password, firstName, lastName, address, city, state, country, isVolunteer, skills);
-//		Boolean volunteerUpdated = volunteerRepository.updateVolunteer(volunteer);
-//		System.out.println("Volunteer Update: " + volunteerUpdated);
-//		return "redirect:/showWelcome"; 
-		return null;
+		Integer projectID = project.getProjectID();
+		String projectName = project.getProjectName();
+		String city = project.getCity();
+		String country = project.getCountry();
+		Date startDate = project.getStartDate();
+		Date endDate = project.getEndDate();
+		Integer orgID = project.getOrgID();
+		List<String> skills = project.getSkills();
+		Project p = new Project(projectID, projectName, city, country, startDate, endDate, orgID, skills);
+		Boolean projectUpdated = projectRepository.updateProject(p);
+		System.out.println("Project Update: " + projectUpdated);
+		return "redirect:/showProjects"; 
 	}
 	
 	@GetMapping("/projectSignUp")
@@ -117,20 +125,4 @@ public class ProjectController {
 		signUpRepository.cancelProjectSignup(volunteerId, projectId);
 		return "redirect:/showProjects";
 	}
-	
-//	@PostMapping("/createProject")
-//	public String createProject(@Valid @ModelAttribute("orgUser") OrganizationUser orgUser, HttpSession session, Model model) throws SQLException {
-//		
-//		LocalDateTime ldt = LocalDateTime.parse(dateTime);
-//		Member currentMember = (Member) session.getAttribute("currentMember");
-//				
-//		Event event = new Event(title, description, location, ldt, currentMember.getMemberId());
-//		
-//		EventDAO edao = new EventDAO();
-//		edao.createEvent(event);
-//		return "redirect:/events/showEvents";
-//		
-//	}
-	
-
 }

@@ -16,43 +16,50 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import com.perscholas.travelcorps.models.OrganizationUser;
 import com.perscholas.travelcorps.models.User;
+import com.perscholas.travelcorps.repositories.OrgRepository;
+import com.perscholas.travelcorps.repositories.OrgUserRepository;
 import com.perscholas.travelcorps.repositories.UserRepository;
 
 @Controller
-@SessionAttributes("user")
+@SessionAttributes("orgUser")
 public class UserController {
 	@Autowired
 	private UserRepository userRepository;
+	@Autowired
+	private OrgUserRepository orgUserRepository;
+	@Autowired 
+	private OrgRepository orgRepository;
 		
 //	@GetMapping("/")
 //	public String showDefault(Model model) {
-//		if (!model.containsAttribute("user")) {
-//			model.addAttribute("user", new User());
+//		if (!model.containsAttribute("orgUser")) {
+//			model.addAttribute("orgUser", new User());
 //		}
 //		return "LoginPage";
 //	}
 	
-	@GetMapping("/showLogin")
-	public String showLogin(Model model) {
-		if (!model.containsAttribute("user")) {
-			model.addAttribute("user", new User());
+	@GetMapping("/showOrgLogin")
+	public String showOrgLogin(Model model) {
+		if (!model.containsAttribute("orgUser")) {
+			model.addAttribute("orgUser", new OrganizationUser());
 		}
-		return "LoginPage";
+		return "OrgLoginPage";
 	}
 		
-	@PostMapping("/loginUser")
-	public String loginUser(@Valid @ModelAttribute("user") User user, BindingResult result, Model model, HttpSession session) throws ClassNotFoundException, IOException, SQLException{
+	@PostMapping("/loginOrgUser")
+	public String loginOrgUser(@Valid @ModelAttribute("orgUser") OrganizationUser orgUser, BindingResult result, Model model, HttpSession session) throws ClassNotFoundException, IOException, SQLException{
 		if (result.hasErrors()) {
-			return "LoginPage";
+			return "OrgLoginPage";
 		}
-		String testUserName = user.getUserName();
-		String password = user.getPassword();
+		String testUserName = orgUser.getUserName();
+		String password = orgUser.getPassword();
 		user = userRepository.getUserByName(testUserName);
 		
-		if (user != null) {
-			if (user.getPassword().equals(password)) {
-				model.addAttribute("user", user);
+		if (orgUser != null) {
+			if (orgUser.getPassword().equals(password)) {
+				model.addAttribute("orgUser", orgUser);
 				return "redirect:/showWelcome";
 			} 
 			else {
@@ -68,31 +75,31 @@ public class UserController {
 	
 	@GetMapping("/showWelcome")
 	public String showWelcome(Model model) {
-		if (!model.containsAttribute("user")) {
-			model.addAttribute("user", new User());
+		if (!model.containsAttribute("orgUser")) {
+			model.addAttribute("orgUser", new OrganizationUser());
 		}
 		return "WelcomePage";
 	}
 	
 	@GetMapping("/showRegistration")
 	public String showRegistration(Model model) {
-		if (!model.containsAttribute("user")) {
-			model.addAttribute("user", new User());
+		if (!model.containsAttribute("orgUser")) {
+			model.addAttribute("orgUser", new OrganizationUser());
 		}
 		return "RegistrationPage";
 	}
 //	
 //	@PostMapping("/registerUser")
-//	public String registerUser(@Valid @ModelAttribute("user") User user, BindingResult result, Model model, HttpSession session) throws SQLException, ClassNotFoundException, IOException {
-//		String userName = user.getUserName();
-//		String password = user.getPassword();
-//		String firstName = user.getFirstName();
-//		String lastName = user.getLastName();
-//		String address = user.getAddress();
-//		String city = user.getCity();
-//		String state = user.getState();
-//		String country = user.getCountry();
-//		Boolean isVolunteer = user.getIsVolunteer();
+//	public String registerUser(@Valid @ModelAttribute("orgUser") User orgUser, BindingResult result, Model model, HttpSession session) throws SQLException, ClassNotFoundException, IOException {
+//		String userName = orgUser.getUserName();
+//		String password = orgUser.getPassword();
+//		String firstName = orgUser.getFirstName();
+//		String lastName = orgUser.getLastName();
+//		String address = orgUser.getAddress();
+//		String city = orgUser.getCity();
+//		String state = orgUser.getState();
+//		String country = orgUser.getCountry();
+//		Boolean isVolunteer = orgUser.getIsVolunteer();
 //		List<String> skills = new ArrayList<String>();
 //		
 //		User u = new User(userName, password, firstName, lastName, address, city, state, country, isVolunteer);
@@ -109,7 +116,7 @@ public class UserController {
 	@GetMapping("/logout")
 	public String logout(Model model, HttpSession session, SessionStatus status) {
 		status.setComplete();
-	    session.removeAttribute("user");
+	    session.removeAttribute("orgUser");
 		return "redirect:/";
 	}
 	 
