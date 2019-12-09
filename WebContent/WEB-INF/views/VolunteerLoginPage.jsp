@@ -29,7 +29,7 @@
 		    <div>
 				<label for="password">Password</label>
 				<div>
-				    <form:input path="password" />
+				    <form:input path="password" type="password" />
 				    <p><form:errors path="password" class="error" /></p>
 				</div>
 		    </div>

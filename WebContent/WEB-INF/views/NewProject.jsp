@@ -47,14 +47,14 @@
 				<tr>
 					<td><label for="startDate">Start Date</label></td>
 					<td>
-						<form:input path="startDate" />
+						<form:input path="startDate" type="date" />
 						<p><form:errors path="startDate" class="error" /></p>
 					</td>
 				</tr>
 				<tr>
 					<td><label for="endDate">End Date</label></td>
 					<td>
-						<form:input path="endDate" />
+						<form:input path="endDate" type="date" />
 						<p><form:errors path="endDate" class="error" /></p>
 					</td>
 				</tr>

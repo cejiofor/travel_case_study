@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -103,19 +104,10 @@ public class ProjectController {
 		return "redirect:/showProjects"; 
 	}
 	
-	@GetMapping("/showProject")
-	public String showProject(@Valid @ModelAttribute("project") Project project, BindingResult result, Model model, @RequestParam Integer volunteerId, @RequestParam Integer projectId) throws ClassNotFoundException, SQLException, IOException{
-		List<Project> projectList = new ArrayList<Project>();
-		try {
-			projectList = projectRepository.getAllProjects();
-		}
-		catch(Exception e) {
-			System.out.println(e.getMessage());
-		}
-		model.addAttribute("projectList", projectList);
-		
-		
-		
+	@GetMapping("/showProject/{projectID}")
+	public String showProject(Model model, @PathVariable("projectID") int projectID) throws ClassNotFoundException, SQLException, IOException{
+		Project project = projectRepository.getProjectById(projectID);
+		model.addAttribute("project", project);
 		return "ProjectPage";
 	}
 	

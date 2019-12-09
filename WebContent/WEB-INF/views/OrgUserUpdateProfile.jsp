@@ -41,7 +41,7 @@
 				<tr>
 					<td><label for="password">Password</label></td>
 					<td>
-						<form:input path="password" />
+						<form:input path="password" type="password"/>
 						<p><form:errors path="password" class="error" /></p>
 					</td>
 				</tr>

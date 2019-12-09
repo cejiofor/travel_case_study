@@ -11,9 +11,10 @@
 	<body>
 		<h1>All Projects</h1>
 		
-		<c:forEach items="${sessionScope}" var="attr">
-		    ${attr.key}=${attr.value}<br>
-		</c:forEach>
+<%-- 		<c:forEach items="${sessionScope}" var="attr"> --%>
+<%-- 		    ${attr.key}=${attr.value}<br> --%>
+<%-- 		</c:forEach> --%>
+		
 		<c:choose>
 			<c:when test="${empty sessionScope.volunteer}">
 				<%@ include file="OrgNavigation.html" %>
@@ -37,7 +38,7 @@
 			<c:forEach items="${projectList}" var="project">
 				<tr>
 					<td>${project.projectID}</td>
-					<td>${project.projectName}</td>
+					<td><a href="${pageContext.request.contextPath}/showProject/${project.projectID}">${project.projectName}</a></td>
 					<td>${project.city}</td>
 					<td>${project.country}</td>
 					<td>${project.startDate}</td>
@@ -45,25 +46,6 @@
 					<td>${project.skills}</td>
 					<td>${project.orgID}</td>
 					<td>
-	<!-- 					Switch statement for table end, depends on user status -->
-	<!-- 					Outer Condition check to see if logged in member created event -->
-<%-- 						<c:choose> --%>
-<!-- 							Allow creators to delete event -->
-<%-- 							<c:when test = "${project.orgID == orgUser.orgID}"> --%>
-<%-- 				            	<a href="${pageContext.request.contextPath}/projects/deleteProject">Delete</a> --%>
-<%-- 				         	</c:when> --%>
-<%-- 				         	<c:otherwise> --%>
-<%-- 								<c:choose> --%>
-<!-- 									Current attendees are given option to cancel, all others to sign up -->
-<%-- 									<c:when test="${event.attendersContainsIdLoop(currentMember.memberId)}"> --%>
-<%-- 										<a href="${pageContext.request.contextPath}/events/cancelSignup?memberId=${currentMember.memberId}&eventId=${event.eventId}">Cancel</a> --%>
-<%-- 									</c:when> --%>
-<%-- 									<c:otherwise> --%>
-<%-- 										<a href="${pageContext.request.contextPath}/events/signUpForEvent?memberId=${currentMember.memberId}&eventId=${event.eventId}">SignUp</a> --%>
-<%-- 									</c:otherwise>	 --%>
-<%-- 								</c:choose> --%>
-<%-- 							</c:otherwise> --%>
-<%-- 			      		</c:choose> --%>
 			      		<c:choose>
 							<c:when test="${volunteerMap.get(project.projectID).contains(volunteer.volunteerId)}">
 								<a href="${pageContext.request.contextPath}/cancelSignUp?volunteerId=${volunteer.volunteerId}&projectId=${project.projectID}">Cancel</a>
