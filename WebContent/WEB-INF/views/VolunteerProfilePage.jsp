@@ -8,7 +8,7 @@
 		<title>Volunteer Profile Page</title>
 	</head>
 	<body>
-		<%@ include file="Navigation.html" %>
+		<%@ include file="VolunteerNavigation.html" %>
 		<h1>Volunteer Profile Page</h1>
 		<!-- <c:forEach items="${volunteer.skills}" var="skill">
 			<h3>${skill}</h3>

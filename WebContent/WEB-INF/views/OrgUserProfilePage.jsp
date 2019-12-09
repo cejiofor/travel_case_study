@@ -7,7 +7,7 @@
 <title>Partner Profile Page</title>
 </head>
 <body>
-	<%@ include file="Navigation.html" %>
+	<%@ include file="OrgNavigation.html" %>
 	<h1>Partner Profile Page</h1>
 	
 	<table>

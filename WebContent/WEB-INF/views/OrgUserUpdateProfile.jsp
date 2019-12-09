@@ -11,6 +11,7 @@
 <title>Update Partner Profile</title>
 </head>
 <body>
+	<%@ include file="OrgNavigation.html" %>
 	<form:form action="${pageContext.request.contextPath}/updateOrgUser" method="post" modelAttribute="orgUser">
 		<fieldset>
 		    <legend>Update Partner Profile</legend>

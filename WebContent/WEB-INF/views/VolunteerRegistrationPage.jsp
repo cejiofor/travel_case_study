@@ -14,7 +14,6 @@
 	</head>
 	<body>
 		<h1>Registration</h1>
-		<%@ include file="Navigation.html" %>
 		<a href="${pageContext.request.contextPath}/">Cancel</a>
 
 		<form:form action="${pageContext.request.contextPath}/registerVolunteer" method="post" modelAttribute="volunteer">

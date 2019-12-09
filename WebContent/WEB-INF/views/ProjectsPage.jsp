@@ -14,7 +14,8 @@
 		<h1>Projects for ${volunteer.userName}</h1>
 		<p>Test ${volunteer.volunteerId}</p>
 		
-		<%@ include file="Navigation.html" %>
+		<%@ include file="OrgNavigation.html" %>
+		<%@ include file="VolunteerNavigation.html" %>
 		<table class="sorttable">
 			<tr>
 				<th>Project ID</th>

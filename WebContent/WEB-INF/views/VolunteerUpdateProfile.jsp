@@ -11,6 +11,7 @@
 		<title>Update Volunteer</title>
 	</head>
 	<body>
+		<%@ include file="VolunteerNavigation.html" %>
 		<form:form action="${pageContext.request.contextPath}/updateVolunteer" method="post" modelAttribute="volunteer">
 			<fieldset>
 				<legend>Update Volunteer</legend>
@@ -93,7 +94,7 @@
 						</td>
 					</tr>
 				</table>
-				<input type="submit" value="Submit Registration">
+				<input type="submit" value="Update Profile">
 			</fieldset>
 		</form:form>
 	</body>

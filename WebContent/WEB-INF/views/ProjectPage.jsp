@@ -9,7 +9,8 @@
 <title>Project Information Page</title>
 </head>
 <body>
-	<%@ include file="Navigation.html" %>
+	<%@ include file="OrgNavigation.html" %>
+	<%@ include file="VolunteerNavigation.html" %>
 	<h1>${project.projectName} Information Page</h1>
 	<table>
 		<tr>

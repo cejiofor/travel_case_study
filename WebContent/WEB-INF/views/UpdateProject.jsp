@@ -11,6 +11,7 @@
 <title>Project Update</title>
 </head>
 <body>
+	<%@ include file="OrgNavigation.html" %>
 	<form:form action="${pageContext.request.contextPath}/updateProject" method="post" modelAttribute="project">
 		<fieldset>
 		    <legend>Update Project</legend>

@@ -14,7 +14,6 @@
 	</head>
 	<body>
 		<h1>Partner Registration</h1>
-		<%@ include file="Navigation.html" %>
 		<a href="${pageContext.request.contextPath}/">Cancel</a>
 		
 		<% if (request.getAttribute("errorMessage") != null) {%>
