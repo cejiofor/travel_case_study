@@ -16,7 +16,7 @@
 		<table>
 			<tr style="display: none;">
 				<td>User ID</td>
-				<td>${orgUser.orgUserID}</td>
+				<td>${orgUser.orgUserId}</td>
 			</tr>
 			<tr>
 				<td>Username</td>

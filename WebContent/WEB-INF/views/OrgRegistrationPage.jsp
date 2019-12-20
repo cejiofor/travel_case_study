@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -24,7 +26,7 @@
 			<p style="color: red;"><%= request.getAttribute("errorMessage") %></p>
 		<% } %>
 
-		<form:form action="${pageContext.request.contextPath}/registerOrganization" method="post" modelAttribute="organization">
+		<form:form action="${pageContext.request.contextPath}/registerOrg" method="post" modelAttribute="org">
 			<fieldset>
 				<legend>Register Organization</legend>
 				<table>
@@ -43,6 +45,13 @@
 						</td>
 					</tr>
 					<tr>
+						<td><label for="mission">Mission</label></td>
+						<td>
+							<form:input path="mission" />
+							<p><form:errors path="mission" class="error" /></p>
+						</td>
+					</tr>
+					<tr>
 						<td><label for="email">Email</label></td>
 						<td>
 							<form:input path="email" />
@@ -56,13 +65,10 @@
 							<p><form:errors path="address" class="error" /></p>
 						</td>
 					</tr>
-					<tr>
-						<td><label for="primeContactId">Prime Contact</label></td>
+					<tr style="display:none ;">
+						<td><label for="primeContactId">Prime Contact ID</label></td>
 						<td>
-							<form:select path="primeContactId">
-								<form:option value="true">Yes</form:option>
-								<form:option selected="selected" value="false">No</form:option>
-							</form:select>	
+							<form:input path="primeContactId" value="1" />
 							<p><form:errors path="primeContactId" class="error" /></p>
 						</td>
 					</tr>

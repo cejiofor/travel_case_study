@@ -15,12 +15,17 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 	</head>
 	<body>
+		<c:forEach items="${sessionScope}" var="attr">
+		    ${attr.key}=${attr.value}<br>
+		</c:forEach>
+		
+		
 		<form:form action="${pageContext.request.contextPath}/createProject" method="post" modelAttribute="project">
 			<fieldset>
 				<legend>Create New Project</legend>
 				<p style="color:red;">${errorMessage}</p>
 				<table>
-					<tr style="diplay:none;">
+					<tr style="display:none;">
 						<td><label for="projectID">Project ID</label></td>
 						<td>
 							<form:input path="projectID"/>
@@ -63,6 +68,13 @@
 						</td>
 					</tr>
 					
+					<tr style="diplay:none;">
+						<td><label for="orgID">Org ID</label></td>
+						<td>
+							<form:input path="orgID" value="${orgUser.orgId}"/>
+							<p><form:errors path="orgID" class="error"/></p>
+						</td>
+					</tr>
 					<tr>
 						<td><label for="skills">Please Select Skills</label></td>
 						<td>

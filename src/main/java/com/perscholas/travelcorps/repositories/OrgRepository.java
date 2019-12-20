@@ -15,6 +15,7 @@ import com.perscholas.travelcorps.models.Organization;
 public interface OrgRepository {
 	List<Organization> getAllOrgs() throws SQLException;	
 	Integer registerOrg (Organization org) throws SQLException, ClassNotFoundException, IOException;
+	Boolean updatePrimeContact(Integer orgID, Integer orgUserId) throws SQLException, ClassNotFoundException, IOException;
 	Organization getOrgById(int orgId) throws ClassNotFoundException, IOException, SQLException;
 	Organization getOrgByName(String name) throws ClassNotFoundException, IOException, SQLException;
 	Boolean updateOrg(Organization org) throws SQLException, ClassNotFoundException, IOException;

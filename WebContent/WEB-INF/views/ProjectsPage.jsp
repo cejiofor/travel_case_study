@@ -18,9 +18,7 @@
 	<body>
 		<h1>All Projects</h1>
 		
-		<c:forEach items="${sessionScope}" var="attr">
-		    ${attr.key}=${attr.value}<br>
-		</c:forEach>
+		
 		
 		<c:choose>
 			<c:when test="${empty sessionScope.volunteer}">
@@ -29,7 +27,16 @@
 	       	<c:when test="${empty sessionScope.orgUser}">
 	       		<%@ include file="VolunteerNavigation.html" %>
 	       	</c:when>
-       	</c:choose>
+		</c:choose>
+		
+		<c:choose>
+			<c:when test="${empty sessionScope.volunteer}">
+				<%@ include file="OrgNavigation.html" %>
+	       	</c:when>
+	       	<c:when test="${empty sessionScope.orgUser}">
+	       		<%@ include file="VolunteerNavigation.html" %>
+	       	</c:when>
+       	</c:choose>   
        	
        	<div class="input-group"> <span class="input-group-addon">Filter</span>
 		    <input id="filter" type="text" class="form-control" placeholder="Type here...">

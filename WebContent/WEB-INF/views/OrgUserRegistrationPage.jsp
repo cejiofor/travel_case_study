@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -16,9 +18,13 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 	</head>
 	<body>
-		<h1>Partner Registration</h1>
-		<a href="${pageContext.request.contextPath}/">Cancel</a>
+		<c:forEach items="${sessionScope}" var="attr">
+		    ${attr.key}=${attr.value}<br>
+		</c:forEach>
 		
+		<h1>Partner Registration</h1>
+		<h2>Partner Org: ${org.orgName}</h2>
+	
 		<% if (request.getAttribute("errorMessage") != null) {%>
 			<p style="color: red;"><%= request.getAttribute("errorMessage") %></p>
 		<% } %>
@@ -26,7 +32,7 @@
 		<form:form action="${pageContext.request.contextPath}/registerOrgUser" method="post" modelAttribute="orgUser">
 		<fieldset>
 		    <legend>Register Partner</legend>
-		    <table class="table" width="50%">
+		    <table class="table" style="width:50%">
 		    	<tr>
 					<td><label for="userName">Username/Email</label></td>
 			        <td>
@@ -83,14 +89,11 @@
 						<p><form:errors path="country" class="error" /></p>
 					</td>
 				</tr>
-				<tr>
-					<td><label for="isPrimeContact">Is your organization registered? If so select:</label></td>
+				<tr style="display:none;">
+					<td><label for="orgId">OrgID</label></td>
 					<td>
-						<form:select path="isPrimeContact">
-						    <form:option value="True"/>
-						    <form:option value="False"/>
-						</form:select>
-						<p><form:errors path="isPrimeContact" class="error" /></p>
+						<form:input path="orgId" value="${org.orgID}" />
+						<p><form:errors path="orgId" class="error" /></p>
 					</td>
 				</tr>
 				
@@ -115,5 +118,6 @@
 		    <input type="submit" value="Submit Registration">
 		</fieldset>
 	    </form:form>
+   		<a href="${pageContext.request.contextPath}/">Cancel</a>
 	</body>
 </html>

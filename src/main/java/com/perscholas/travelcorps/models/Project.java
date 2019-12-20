@@ -1,12 +1,11 @@
 package com.perscholas.travelcorps.models;
 
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.perscholas.travelcorps.repositories.SignUpRepository;
 
@@ -15,7 +14,9 @@ public class Project {
 	private String projectName;
 	private String city;
 	private String country;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date startDate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date endDate;
 	private int orgID;
 	private List<String> skills;

@@ -38,14 +38,13 @@ public class MariaDbOrgRepository implements OrgRepository {
 	public Integer registerOrg(Organization org) throws SQLException, ClassNotFoundException, IOException{
 		Integer id = -1;
 		MapSqlParameterSource params = new MapSqlParameterSource();
-		params.addValue("orgID", org.getOrgID());
+//		params.addValue("orgID", org.getOrgID());
 		params.addValue("orgName", org.getOrgName());
 		params.addValue("website", org.getWebsite());
 		params.addValue("mission", org.getMission());
 		params.addValue("email", org.getEmail());
 		params.addValue("address", org.getAddress());
-		params.addValue("primeContactId", org.getPrimeContactId());
-		String createUserSql = "insert into orgs (org_id, org_name, website, email, address, prime_contact_id) values (:ordID, :orgName, :website, :mission, :email, :address, :prime_contact_id)";		
+		String createUserSql = "insert into orgs (org_name, website, mission_id, email, address) values (:orgName, :website, :mission, :email, :address)";		
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		Integer createResult = mariaDbJdbcTemplate.update(createUserSql, params, keyHolder);
 		if (createResult > 0) {
@@ -74,7 +73,7 @@ public class MariaDbOrgRepository implements OrgRepository {
 	
 	@Override
 	public Organization getOrgByName(String orgName) throws ClassNotFoundException, IOException, SQLException{
-		String selectOrgByName = "select * from orgs where username = :username";
+		String selectOrgByName = "select * from orgs where org_name = :orgName";
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("orgName", orgName);
 		Organization org= null;
@@ -100,7 +99,21 @@ public class MariaDbOrgRepository implements OrgRepository {
 		params.put("email", org.getEmail());
 		params.put("address", org.getAddress());
 		params.put("primeContactId", org.getPrimeContactId());
-		String updateSql = "update users set org_id = :orgID, website = :website, mission = :mission, email= :email, address = :address, prime_contact_id = :primeContactId where org_id = :orgID";		
+		String updateSql = "update orgs set org_name = :orgName, website = :website, mission = :mission, email = :email, address = :address, prime_contact_id = :primeContactId where org_id = :orgID";		
+		result = mariaDbJdbcTemplate.update(updateSql, params);
+		if (result > 0) {
+			return true;
+		}
+		return false;	
+	}
+	
+	@Override
+	public Boolean updatePrimeContact(Integer orgID, Integer orgUserId) throws SQLException, ClassNotFoundException, IOException{
+		Integer result;
+		Map<String, Object> params = new HashMap<>();
+		params.put("orgID", orgID);
+		params.put("orgUserId", orgUserId);
+		String updateSql = "update orgs set prime_contact_id = :orgUserId where org_id = :orgID";		
 		result = mariaDbJdbcTemplate.update(updateSql, params);
 		if (result > 0) {
 			return true;
@@ -111,9 +124,9 @@ public class MariaDbOrgRepository implements OrgRepository {
 	@Override
 	public Boolean removeOrg(int orgId) throws IOException, SQLException{
 		Integer result;
-		String deleteSql = "delete from orgs where org_id = :org_id";
+		String deleteSql = "delete from orgs where org_id = :orgId";
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("org_id", orgId);
+		params.put("orgId", orgId);
 		result = mariaDbJdbcTemplate.update(deleteSql, params);
 		if (result > 0) {
 			return true;
@@ -132,13 +145,13 @@ public class MariaDbOrgRepository implements OrgRepository {
 			org.setEmail(rs.getString(5));
 			org.setAddress(rs.getString(6));
 			org.setPrimeContactId(rs.getInt(7));
-			List<Integer> projects = new ArrayList<Integer>();
-			int sqlIndex = 8;
-			while (sqlIndex < 13) {
-				projects.add(rs.getInt(sqlIndex));
-				sqlIndex++;
-			}
-			org.setProjects(projects);
+//			List<Integer> projects = new ArrayList<Integer>();
+//			int sqlIndex = 8;
+//			while (sqlIndex < 13) {
+//				projects.add(rs.getInt(sqlIndex));
+//				sqlIndex++;
+//			}
+//			org.setProjects(projects);
 			return org;
 		}
 	}

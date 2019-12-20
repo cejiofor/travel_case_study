@@ -21,6 +21,13 @@
 				<legend>Update Volunteer</legend>
 				<p style="color:red;">${errorMessage}</p>
 				<table>
+					<tr style="display: none;"> 
+						<td><label for="userId">userId</label></td>
+						<td>
+							<form:input path="userId" value="${volunteer.userId}"/>
+							<p><form:errors path="userId" class="error"/></p>
+						</td>
+					</tr>
 					<tr>
 						<td><label for="userName">Username/Email</label></td>
 						<td>

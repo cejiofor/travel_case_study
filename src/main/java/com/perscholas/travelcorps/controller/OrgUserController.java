@@ -13,7 +13,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
@@ -34,17 +36,9 @@ public class OrgUserController {
 	private OrgUserRepository orgUserRepository;
 	@Autowired 
 	private OrgRepository orgRepository;
-		
-//	@GetMapping("/")
-//	public String showDefault(Model model) {
-//		if (!model.containsAttribute("orgUser")) {
-//			model.addAttribute("orgUser", new User());
-//		}
-//		return "LoginPage";
-//	}
 	
 	@GetMapping("/showOrgUserLogin")
-	public String showOrgUserLogin(Model model) {
+	public String showOrgUserLogin(Model model) {	
 		if (!model.containsAttribute("orgUser")) {
 			model.addAttribute("orgUser", new OrganizationUser());
 		}
@@ -86,26 +80,43 @@ public class OrgUserController {
 			return "OrgUserLoginPage";
 		}
 	}
+
 	
-//	@GetMapping("/showOrgWelcome")
-//	public String showOrgWelcome(Model model) {
+//	@GetMapping("/orgUserRegistration")
+//	public String orgUserRegistration(Model model, @RequestParam String orgName, HttpSession session) {
+//		Organization org = null;
+//		try {
+//			org = orgRepository.getOrgByName(orgName);
+//		}
+//		catch(Exception e) {
+//			System.out.println(e.getMessage());
+//		}
+//		System.out.println(org.getOrgName());
+//		model.addAttribute("org", org);
+//		session.setAttribute("org", org);
+//		
 //		if (!model.containsAttribute("orgUser")) {
 //			model.addAttribute("orgUser", new OrganizationUser());
 //		}
-//		return "WelcomePage";
+//		return "OrgUserRegistrationPage";
 //	}
 	
 	@GetMapping("/orgUserRegistration")
-	public String orgUserRegistration(Model model) {
+	public String orgUserRegistration(Model model, HttpSession session) {
+		Organization org = (Organization) session.getAttribute("org");
+		System.out.println(org.getOrgName());
+		model.addAttribute("org", org);
+		session.setAttribute("org", org);
+		
 		if (!model.containsAttribute("orgUser")) {
 			model.addAttribute("orgUser", new OrganizationUser());
 		}
 		return "OrgUserRegistrationPage";
 	}
+	
 	@PostMapping("/registerOrgUser")
 	public String registerOrgUser(@Valid @ModelAttribute("orgUser") OrganizationUser orgUser, BindingResult result, Model model, HttpSession session) throws SQLException, ClassNotFoundException, IOException {
 		if (result.hasErrors()) {
-			System.out.println("Not Working!!!");
 			return "OrgUserRegistrationPage";
 		} 
 		String userName = orgUser.getUserName();
@@ -129,16 +140,22 @@ public class OrgUserController {
 		String country = orgUser.getCountry();
 		Boolean isVolunteer = orgUser.getIsVolunteer();
 		Boolean isPrimeContact = orgUser.getIsPrimeContact();
-		Organization org = (Organization) session.getAttribute("curretOrg");
+		Organization org = (Organization) session.getAttribute("org");
+		
 		User u = new User(userName, password, firstName, lastName, address, city, state, country, isVolunteer);
 		Integer userId = userRepository.registerUser(u);
 		u.setUserId(userId);
-		System.out.println(userId);
+		System.out.println("New User: "+userId);
+		
 		OrganizationUser ou = new OrganizationUser(userId, userName, password, firstName, lastName, address, city, state, country, isVolunteer, org.getOrgID(), isPrimeContact);
 		Integer orgUserId = orgUserRepository.registerOrgUsers(ou);
-		System.out.println(orgUserId);
+		System.out.println("New OrgUser: "+orgUserId);
 		orgUser.setOrgUserId(orgUserId);
-		return "redirect:/showOrgLogin";
+		
+		if(isPrimeContact) {
+			orgRepository.updatePrimeContact(org.getOrgID(), orgUserId);
+		}
+		return "redirect:/showOrgUserLogin";
 	}
 	
 	@GetMapping("/showOrgUserProfile")
@@ -148,7 +165,7 @@ public class OrgUserController {
 	
 	@GetMapping("/showOrgUserUpdate")
 	public String showOrgUserUpdate(Model model) {
-		return "UpdateOrgUserProfile";
+		return "OrgUserUpdateProfile";
 	}
 	
 	@PostMapping("/updateOrgUser")
@@ -165,9 +182,11 @@ public class OrgUserController {
 		Boolean isVolunteer = orgUser.getIsVolunteer();
 //		Boolean isPrimeContact = orgUser.getIsPrimeContact();
 //		Integer orgID = orgUser.getOrgId();
+		
 		User u = new User(userId, userName, password, firstName, lastName, address, city, state, country, isVolunteer);
 		Boolean userUpdated = userRepository.updateUser(u);
 		System.out.println("User Update: " + userUpdated);
+		
 //		OrganizationUser ou = new OrganizationUser(userId, userName, password, firstName, lastName, address, city, state, country, isVolunteer, orgID, isPrimeContact);
 		Boolean orgUserUpdated = orgUserRepository.updateOrgUsers(orgUser);
 		System.out.println("Org User Update: " + orgUserUpdated);
@@ -176,11 +195,6 @@ public class OrgUserController {
 	
 	@PostMapping("/removeOrgUser")
 	public String removeOrgUser(@Valid @ModelAttribute("orgUser") OrganizationUser orgUser, BindingResult result, Model model, HttpSession session) throws SQLException, ClassNotFoundException, IOException {
-		if (result.hasErrors()) {
-			System.out.println("Not Working!!!");
-			return "OrgUserRegistrationPage";
-		}
-		
 		Integer orgUserId = orgUser.getOrgUserId();
 		Integer userId = orgUser.getUserId();
 		Boolean userRemoved = userRepository.removeUser(userId);

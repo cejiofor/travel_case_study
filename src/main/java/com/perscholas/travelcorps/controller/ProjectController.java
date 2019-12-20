@@ -26,6 +26,7 @@ import com.perscholas.travelcorps.models.Project;
 import com.perscholas.travelcorps.models.Volunteer;
 import com.perscholas.travelcorps.repositories.ProjectRepository;
 import com.perscholas.travelcorps.repositories.SignUpRepository;
+import com.perscholas.travelcorps.repositories.VolunteerRepository;
 
 @Controller
 //@RequestMapping("/project") //class level map
@@ -33,7 +34,8 @@ import com.perscholas.travelcorps.repositories.SignUpRepository;
 public class ProjectController {
 	@Autowired
 	private ProjectRepository projectRepository;
-	
+	@Autowired 
+	private VolunteerRepository volunteerRepository;
 	@Autowired 
 	private SignUpRepository signUpRepository;
 	
@@ -81,17 +83,18 @@ public class ProjectController {
 			return "NewProject";
 		}
 		String projectName = project.getProjectName();
-		Boolean projectExists = true;
+		Boolean projectExists = null;
 		try {
 			projectRepository.getProjectByName(projectName);
+			projectExists = true;
 		}
 		catch (NullPointerException e){
 			projectExists = false;
 		}
-		if (projectExists) {
-			model.addAttribute("errorMessage", "Project Already Exists");
-			return "NewProject";
-		}
+//		if (projectExists) {
+//			model.addAttribute("errorMessage", "Project Already Exists");
+//			return "NewProject";
+//		}
 		String city = project.getCity();
 		String country = project.getCountry();
 		Date startDate = project.getStartDate();
@@ -108,6 +111,37 @@ public class ProjectController {
 	public String showProject(Model model, @PathVariable("projectID") int projectID) throws ClassNotFoundException, SQLException, IOException{
 		Project project = projectRepository.getProjectById(projectID);
 		model.addAttribute("project", project);
+		
+		
+		List<Integer> volunteerIDList = new ArrayList<Integer>();
+		try {
+			volunteerIDList = signUpRepository.getProjectVolunteers(projectID);
+		}
+		catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
+//		List<Volunteer> volunteerList = new ArrayList<Volunteer>();
+//		try {
+//			volunteerList = volunteerRepository.getAllVolunteers();
+//		}
+//		catch(Exception e) {
+//			System.out.println(e.getMessage());
+//		}
+//		model.addAttribute("volunteerList", volunteerList);
+		List<Volunteer> volunteerList = new ArrayList<Volunteer>();
+		for(Integer i: volunteerIDList) {
+			Volunteer volunteer = null;
+			try {
+				volunteer = volunteerRepository.getVolunteerById(i);
+			}
+			catch(Exception e) {
+				System.out.println(e.getMessage());
+			}
+			volunteerList.add(volunteer);
+		}
+		model.addAttribute("volunteerList", volunteerList);
+		
 		return "ProjectPage";
 	}
 	

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     
 <!DOCTYPE html>
 <html>
@@ -18,6 +19,10 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 	</head>
 	<body>
+		<c:forEach items="${sessionScope}" var="attr">
+		    ${attr.key}=${attr.value}<br>
+		</c:forEach>
+		
 		<h1>Welcome to Travel Corps</h1>
 		<form:form action="${pageContext.request.contextPath}/loginOrgUser" method="post" modelAttribute="orgUser">
 			<fieldset>
@@ -40,6 +45,6 @@
 				<input type="submit" value="Login">
 			</fieldset>
 		</form:form>
-		<a href="${pageContext.request.contextPath}/orgUserRegistration">Partner Registration</a>
+		<a href="${pageContext.request.contextPath}/orgSelection">Partner Registration</a>
 	</body>
 </html>

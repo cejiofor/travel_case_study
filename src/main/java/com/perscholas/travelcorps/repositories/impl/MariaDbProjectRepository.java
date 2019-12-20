@@ -79,7 +79,7 @@ public class MariaDbProjectRepository implements ProjectRepository {
 			skillParams = skillParams + ", :" + skillNum;
 			params.addValue(skillNum, skills.get(i));
 		}
-		String createUserSql = "insert into projects (project_name, city, country, startDate, endDate, ord_id"+skillAdd+") values (:project_name, :city, :country, :startDate, :endDate, :ord_id"+skillParams+")";
+		String createUserSql = "insert into projects (project_name, city, country, startDate, endDate, org_id"+skillAdd+") values (:projectName, :city, :country, :startDate, :endDate, :orgId"+skillParams+")";
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		Integer createResult = mariaDbJdbcTemplate.update(createUserSql, params, keyHolder);
 		if (createResult > 0) {

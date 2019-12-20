@@ -37,4 +37,4 @@ INSERT INTO projects (project_name, city, country, startDate, endDate, org_id, s
 INSERT INTO projects (project_name, city, country, startDate, endDate, org_id, skill1, skill2) VALUES ("Food Distrubtion Project", "Dhaka", "Bangladesh", "2020-01-06", "2020-02-13", 2, "Project Management", "Translation");
 INSERT INTO projects (project_name, city, country, startDate, endDate, org_id, skill1, skill2) VALUES ("Peace Summit Event", "Singapore", "Singapore", "2020-06-14", "2020-06-18", 3, "Mediation", "International Relations");
 
-SET foreign_key_checks = 1;	
+-- SET foreign_key_checks = 1;	

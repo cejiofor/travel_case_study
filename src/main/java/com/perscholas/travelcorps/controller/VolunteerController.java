@@ -26,24 +26,14 @@ import com.perscholas.travelcorps.repositories.VolunteerRepository;
 @SessionAttributes("volunteer")
 public class VolunteerController {
 	@Autowired
-	private UserRepository userRepository;
-	
+	private UserRepository userRepository;	
 	@Autowired
 	private VolunteerRepository volunteerRepository;
-	
-//	@GetMapping("/")
-//	public String showDefault(Model model) {
-//		if (!model.containsAttribute("volunteer")) {
-//			System.out.println("New Volunteer Object");
-//			model.addAttribute("volunteer", new Volunteer());
-//		}
-//		return "VolunteerLoginPage";
-//	}
+
 	
 	@GetMapping("/showVolunteerLogin")
 	public String showVolunteerLogin(Model model) {
 		if (!model.containsAttribute("volunteer")) {
-			System.out.println("New Volunteer Object");
 			model.addAttribute("volunteer", new Volunteer());
 		}
 		return "VolunteerLoginPage";
@@ -52,7 +42,6 @@ public class VolunteerController {
 	@PostMapping("/loginVolunteer")
 	public String loginVolunteer(@Valid @ModelAttribute("volunteer") Volunteer volunteer, BindingResult result, Model model, HttpSession session) throws ClassNotFoundException, IOException, SQLException{
 		if (result.hasErrors()) {
-			System.out.println("ERRORS:" + volunteer.toString());
 			return "VolunteerLoginPage";
 		}
 		String testUserName = volunteer.getUserName();
@@ -86,19 +75,9 @@ public class VolunteerController {
 		}
 	}
 	
-	@GetMapping("/showVolunteerwWelcome")
-	public String showVolunteerWelcome(Model model) {
-		if (!model.containsAttribute("volunteer")) {
-			System.out.println("New Volunteer Object");
-			model.addAttribute("volunteer", new Volunteer());
-		}
-		return "WelcomePage";
-	}
-	
 	@GetMapping("/volunteerRegistration")
 	public String volunteerRegistration(Model model) {
 		if (!model.containsAttribute("volunteer")) {
-			System.out.println("New Volunteer Object");
 			model.addAttribute("volunteer", new Volunteer());
 		}
 		return "VolunteerRegistrationPage";
@@ -107,7 +86,6 @@ public class VolunteerController {
 	@PostMapping("/registerVolunteer")
 	public String registerVolunteer(@Valid @ModelAttribute("volunteer") Volunteer volunteer, BindingResult result, Model model, HttpSession session) throws SQLException, ClassNotFoundException, IOException {
 		if (result.hasErrors()) {
-			System.out.println("Not Working!!!");
 			return "VolunteerRegistrationPage";
 		} 
 		String userName = volunteer.getUserName();
@@ -135,11 +113,13 @@ public class VolunteerController {
 		User u = new User(userName, password, firstName, lastName, address, city, state, country, isVolunteer);
 		Integer userId = userRepository.registerUser(u);
 		u.setUserId(userId);
-		System.out.println(userId);
+		System.out.println("New User: "+userId);
+		
 		Volunteer v = new Volunteer(userId, userName, password, firstName, lastName, address, city, state, country, isVolunteer, skills);
 		Integer volunteerId = volunteerRepository.registerVolunteer(v);
-		System.out.println(volunteerId);
 		volunteer.setVolunteerId(volunteerId);
+		System.out.println("New Volunteer: "+volunteerId);
+		
 		return "redirect:/showVolunteerLogin";
 	}
 	
@@ -167,9 +147,11 @@ public class VolunteerController {
 		String country = volunteer.getCountry();
 		Boolean isVolunteer = volunteer.getIsVolunteer();
 //		List<String> skills = volunteer.getSkills();
+		
 		User u = new User(userId, userName, password, firstName, lastName, address, city, state, country, isVolunteer);
 		Boolean userUpdated = userRepository.updateUser(u);
 		System.out.println("User Update: " + userUpdated);
+		
 //		Volunteer v = new Volunteer(volunteerId, userId, userName, password, firstName, lastName, address, city, state, country, isVolunteer, skills);
 		Boolean volunteerUpdated = volunteerRepository.updateVolunteer(volunteer);
 		System.out.println("Volunteer Update: " + volunteerUpdated);
