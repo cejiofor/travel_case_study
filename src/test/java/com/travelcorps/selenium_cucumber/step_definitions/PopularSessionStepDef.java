@@ -1,4 +1,4 @@
-package com.perscholas.selenium_cucumber_template.step_definitions;
+package com.travelcorps.selenium_cucumber.step_definitions;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;

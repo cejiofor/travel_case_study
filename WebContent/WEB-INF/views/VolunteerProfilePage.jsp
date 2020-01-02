@@ -12,6 +12,7 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 	</head>
 	<body>
+		<%@ include file="sessions.jsp" %>
 		<%@ include file="VolunteerNavigation.html" %>
 		<h1>Volunteer Profile Page</h1>
 		<!-- <c:forEach items="${volunteer.skills}" var="skill">

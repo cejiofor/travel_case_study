@@ -18,10 +18,7 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 	</head>
 	<body>
-		<c:forEach items="${sessionScope}" var="attr">
-		    ${attr.key}=${attr.value}<br>
-		</c:forEach>
-		
+		<%@ include file="sessions.jsp" %>
 		<h1>Partner Registration</h1>
 		<h2>Partner Org: ${org.orgName}</h2>
 	
@@ -29,7 +26,7 @@
 			<p style="color: red;"><%= request.getAttribute("errorMessage") %></p>
 		<% } %>
 
-		<form:form action="${pageContext.request.contextPath}/registerOrgUser" method="post" modelAttribute="orgUser">
+		<form:form action="${pageContext.request.contextPath}/registerOrgUser" method="post" modelAttribute="user">
 		<fieldset>
 		    <legend>Register Partner</legend>
 		    <table class="table" style="width:50%">

@@ -23,7 +23,7 @@ import com.perscholas.travelcorps.repositories.UserRepository;
 import com.perscholas.travelcorps.repositories.VolunteerRepository;
 
 @Controller
-@SessionAttributes("volunteer")
+@SessionAttributes("user")
 public class VolunteerController {
 	@Autowired
 	private UserRepository userRepository;	
@@ -33,14 +33,14 @@ public class VolunteerController {
 	
 	@GetMapping("/showVolunteerLogin")
 	public String showVolunteerLogin(Model model) {
-		if (!model.containsAttribute("volunteer")) {
-			model.addAttribute("volunteer", new Volunteer());
+		if (!model.containsAttribute("user")) {
+			model.addAttribute("user", new Volunteer());
 		}
 		return "VolunteerLoginPage";
 	}
 		
 	@PostMapping("/loginVolunteer")
-	public String loginVolunteer(@Valid @ModelAttribute("volunteer") Volunteer volunteer, BindingResult result, Model model, HttpSession session) throws ClassNotFoundException, IOException, SQLException{
+	public String loginVolunteer(@Valid @ModelAttribute("user") Volunteer volunteer, BindingResult result, Model model, HttpSession session) throws ClassNotFoundException, IOException, SQLException{
 		if (result.hasErrors()) {
 			return "VolunteerLoginPage";
 		}
@@ -61,7 +61,7 @@ public class VolunteerController {
 		
 		if (volunteer != null) {
 			if (volunteer.getPassword().equals(password)) {
-				model.addAttribute("volunteer", volunteer);
+				model.addAttribute("user", volunteer);
 				return "redirect:/showProjects";
 			}
 			else {
@@ -77,14 +77,14 @@ public class VolunteerController {
 	
 	@GetMapping("/volunteerRegistration")
 	public String volunteerRegistration(Model model) {
-		if (!model.containsAttribute("volunteer")) {
-			model.addAttribute("volunteer", new Volunteer());
+		if (!model.containsAttribute("user")) {
+			model.addAttribute("user", new Volunteer());
 		}
 		return "VolunteerRegistrationPage";
 	}
 	
 	@PostMapping("/registerVolunteer")
-	public String registerVolunteer(@Valid @ModelAttribute("volunteer") Volunteer volunteer, BindingResult result, Model model, HttpSession session) throws SQLException, ClassNotFoundException, IOException {
+	public String registerVolunteer(@Valid @ModelAttribute("user") Volunteer volunteer, BindingResult result, Model model, HttpSession session) throws SQLException, ClassNotFoundException, IOException {
 		if (result.hasErrors()) {
 			return "VolunteerRegistrationPage";
 		} 
@@ -134,7 +134,7 @@ public class VolunteerController {
 	}
 	
 	@PostMapping("/updateVolunteer")
-	public String updateVolunteer(@Valid @ModelAttribute("volunteer") Volunteer volunteer, BindingResult result, Model model, HttpSession session) throws SQLException, ClassNotFoundException, IOException {
+	public String updateVolunteer(@Valid @ModelAttribute("user") Volunteer volunteer, BindingResult result, Model model, HttpSession session) throws SQLException, ClassNotFoundException, IOException {
 //		Integer volunteerId = volunteer.getVolunteerId();
 		Integer userId = volunteer.getUserId();
 		String userName = volunteer.getUserName();
@@ -159,7 +159,7 @@ public class VolunteerController {
 	}
 	
 	@PostMapping("/removeVolunteer")
-	public String removeVolunteer(@Valid @ModelAttribute("volunteer") Volunteer volunteer, BindingResult result, Model model, HttpSession session) throws SQLException, ClassNotFoundException, IOException {
+	public String removeVolunteer(@Valid @ModelAttribute("user") Volunteer volunteer, BindingResult result, Model model, HttpSession session) throws SQLException, ClassNotFoundException, IOException {
 		Integer volunteerId = volunteer.getVolunteerId();
 		Integer userId = volunteer.getUserId();
 		Boolean userRemoved = userRepository.removeUser(userId);

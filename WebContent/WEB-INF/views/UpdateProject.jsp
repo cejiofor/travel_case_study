@@ -15,13 +15,14 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 	</head>
 	<body>
+		<%@ include file="sessions.jsp" %>
 		<%@ include file="OrgNavigation.html" %>
 		<form:form action="${pageContext.request.contextPath}/updateProject" method="post" modelAttribute="project">
 			<fieldset>
 				<legend>Update Project</legend>
 				<p style="color:red;">${errorMessage}</p>
 				<table>
-					<tr style="diplay:none;">
+					<tr style="display:none;">
 						<td><label for="projectID">Project ID</label></td>
 						<td>
 							<form:input path="projectID"/>

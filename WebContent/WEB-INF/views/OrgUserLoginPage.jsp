@@ -19,12 +19,8 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 	</head>
 	<body>
-		<c:forEach items="${sessionScope}" var="attr">
-		    ${attr.key}=${attr.value}<br>
-		</c:forEach>
-		
 		<h1>Welcome to Travel Corps</h1>
-		<form:form action="${pageContext.request.contextPath}/loginOrgUser" method="post" modelAttribute="orgUser">
+		<form:form action="${pageContext.request.contextPath}/loginOrgUser" method="post" modelAttribute="user">
 			<fieldset>
 				<legend>Partner Login Here</legend>
 				<p style="color:red;">${errorMessage}</p>

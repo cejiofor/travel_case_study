@@ -15,11 +15,9 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 	</head>
 	<body>
-		<c:forEach items="${sessionScope}" var="attr">
-		    ${attr.key}=${attr.value}<br>
-		</c:forEach>
-		
-		
+		<%@ include file="sessions.jsp" %>
+		<%@ include file="OrgNavigation.html" %>
+
 		<form:form action="${pageContext.request.contextPath}/createProject" method="post" modelAttribute="project">
 			<fieldset>
 				<legend>Create New Project</legend>

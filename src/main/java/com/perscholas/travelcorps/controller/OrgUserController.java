@@ -28,7 +28,7 @@ import com.perscholas.travelcorps.repositories.OrgUserRepository;
 import com.perscholas.travelcorps.repositories.UserRepository;
 
 @Controller
-@SessionAttributes("orgUser")
+@SessionAttributes("user")
 public class OrgUserController {
 	@Autowired
 	private UserRepository userRepository;
@@ -39,14 +39,14 @@ public class OrgUserController {
 	
 	@GetMapping("/showOrgUserLogin")
 	public String showOrgUserLogin(Model model) {	
-		if (!model.containsAttribute("orgUser")) {
-			model.addAttribute("orgUser", new OrganizationUser());
+		if (!model.containsAttribute("user")) {
+			model.addAttribute("user", new OrganizationUser());
 		}
 		return "OrgUserLoginPage";
 	}
 		
 	@PostMapping("/loginOrgUser")
-	public String loginOrgUser(@Valid @ModelAttribute("orgUser") OrganizationUser orgUser, BindingResult result, Model model, HttpSession session) throws ClassNotFoundException, IOException, SQLException{
+	public String loginOrgUser(@Valid @ModelAttribute("user") OrganizationUser orgUser, BindingResult result, Model model, HttpSession session) throws ClassNotFoundException, IOException, SQLException{
 		if (result.hasErrors()) {
 			return "OrgUserLoginPage";
 		}
@@ -67,7 +67,7 @@ public class OrgUserController {
 		
 		if (orgUser != null) {
 			if (orgUser.getPassword().equals(password)) {
-				model.addAttribute("orgUser", orgUser);
+				model.addAttribute("user", orgUser);
 				return "redirect:/showProjects";
 			} 
 			else {
@@ -108,14 +108,14 @@ public class OrgUserController {
 		model.addAttribute("org", org);
 		session.setAttribute("org", org);
 		
-		if (!model.containsAttribute("orgUser")) {
-			model.addAttribute("orgUser", new OrganizationUser());
+		if (!model.containsAttribute("user")) {
+			model.addAttribute("user", new OrganizationUser());
 		}
 		return "OrgUserRegistrationPage";
 	}
 	
 	@PostMapping("/registerOrgUser")
-	public String registerOrgUser(@Valid @ModelAttribute("orgUser") OrganizationUser orgUser, BindingResult result, Model model, HttpSession session) throws SQLException, ClassNotFoundException, IOException {
+	public String registerOrgUser(@Valid @ModelAttribute("user") OrganizationUser orgUser, BindingResult result, Model model, HttpSession session) throws SQLException, ClassNotFoundException, IOException {
 		if (result.hasErrors()) {
 			return "OrgUserRegistrationPage";
 		} 
@@ -169,7 +169,7 @@ public class OrgUserController {
 	}
 	
 	@PostMapping("/updateOrgUser")
-	public String updateOrgUser(@Valid @ModelAttribute("orgUser") OrganizationUser orgUser, BindingResult result, Model model, HttpSession session) throws SQLException, ClassNotFoundException, IOException {
+	public String updateOrgUser(@Valid @ModelAttribute("user") OrganizationUser orgUser, BindingResult result, Model model, HttpSession session) throws SQLException, ClassNotFoundException, IOException {
 		Integer userId = orgUser.getUserId();
 		String userName = orgUser.getUserName();
 		String password = orgUser.getPassword();
@@ -194,7 +194,7 @@ public class OrgUserController {
 	}
 	
 	@PostMapping("/removeOrgUser")
-	public String removeOrgUser(@Valid @ModelAttribute("orgUser") OrganizationUser orgUser, BindingResult result, Model model, HttpSession session) throws SQLException, ClassNotFoundException, IOException {
+	public String removeOrgUser(@Valid @ModelAttribute("user") OrganizationUser orgUser, BindingResult result, Model model, HttpSession session) throws SQLException, ClassNotFoundException, IOException {
 		Integer orgUserId = orgUser.getOrgUserId();
 		Integer userId = orgUser.getUserId();
 		Boolean userRemoved = userRepository.removeUser(userId);

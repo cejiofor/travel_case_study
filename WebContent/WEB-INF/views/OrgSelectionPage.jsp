@@ -18,6 +18,7 @@
 <!-- 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script> -->
 	</head>
 	<body>
+		<%@ include file="sessions.jsp" %>
 		<h1>Partner Selection</h1>
 		<a href="${pageContext.request.contextPath}/">Cancel</a>
 		
@@ -25,9 +26,6 @@
 			<p style="color: red;"><%= request.getAttribute("errorMessage") %></p>
 		<% } %>
 		
-		<c:forEach items="${sessionScope}" var="attr">
-		    ${attr.key}=${attr.value}<br>
-		</c:forEach>
 		
 		
 		<p>Select Your Organization from the dropdown menu, or register a new organization</p>

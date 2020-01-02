@@ -18,25 +18,17 @@
 	<body>
 		<h1>All Projects</h1>
 		
-		
-		
-		<c:choose>
-			<c:when test="${empty sessionScope.volunteer}">
-				<%@ include file="OrgNavigation.html" %>
+		<%@ include file="sessions.jsp" %>
+       	
+       	<c:choose>
+			<c:when test="${sessionScope.user['class'].simpleName  eq 'Volunteer'}">
+				IT WORKED
+				<%@ include file="VolunteerNavigation.html" %>
 	       	</c:when>
-	       	<c:when test="${empty sessionScope.orgUser}">
-	       		<%@ include file="VolunteerNavigation.html" %>
+	       	<c:when test="${sessionScope.user['class'].simpleName  eq 'OrganizationUser'}">
+	       		<%@ include file="OrgNavigation.html" %>
 	       	</c:when>
 		</c:choose>
-		
-		<c:choose>
-			<c:when test="${empty sessionScope.volunteer}">
-				<%@ include file="OrgNavigation.html" %>
-	       	</c:when>
-	       	<c:when test="${empty sessionScope.orgUser}">
-	       		<%@ include file="VolunteerNavigation.html" %>
-	       	</c:when>
-       	</c:choose>   
        	
        	<div class="input-group"> <span class="input-group-addon">Filter</span>
 		    <input id="filter" type="text" class="form-control" placeholder="Type here...">
@@ -81,6 +73,7 @@
 			
 		</table>
 	</body>
+	
 	<script type="text/javascript">
 		$(document).ready(function () {
 	

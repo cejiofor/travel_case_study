@@ -19,7 +19,7 @@
 	</head>
 	<body>
 		<h1>Welcome to Travel Corps</h1>
-		<form:form action="${pageContext.request.contextPath}/loginVolunteer" method="post" modelAttribute="volunteer">
+		<form:form action="${pageContext.request.contextPath}/loginVolunteer" method="post" modelAttribute="user">
 		<fieldset>
 		    <legend>Volunteer Login Here</legend>
 		    <p style="color:red;">${errorMessage}</p>

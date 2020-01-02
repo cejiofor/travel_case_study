@@ -1,4 +1,4 @@
-package com.perscholas.selenium_cucumber_template.automation;
+package com.travelcorps.selenium_cucumber.automation;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

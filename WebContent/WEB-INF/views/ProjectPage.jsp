@@ -14,18 +14,16 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 	</head>
 	<body>
+		<%@ include file="sessions.jsp" %>
 		<c:choose>
-			<c:when test="${empty sessionScope.volunteer}">
-				<%@ include file="OrgNavigation.html" %>
+			<c:when test="${sessionScope.user['class'].simpleName  eq 'Volunteer'}">
+				IT WORKED
+				<%@ include file="VolunteerNavigation.html" %>
 	       	</c:when>
-	       	<c:when test="${empty sessionScope.orgUser}">
-	       		<%@ include file="VolunteerNavigation.html" %>
+	       	<c:when test="${sessionScope.user['class'].simpleName  eq 'OrganizationUser'}">
+	       		<%@ include file="OrgNavigation.html" %>
 	       	</c:when>
-       	</c:choose>
-       	
-<%--     	<c:forEach items="${sessionScope}" var="attr"> --%>
-<%-- 		    ${attr.key}=${attr.value}<br> --%>
-<%-- 		</c:forEach> --%>
+		</c:choose>
 
 		<h1>${project.projectName} Information Page</h1>
 		<table>

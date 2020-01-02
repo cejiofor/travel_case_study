@@ -1,4 +1,4 @@
-package com.perscholas.selenium_cucumber_template.runners;
+package com.travelcorps.selenium_cucumber.runners;
 
 import org.junit.runner.RunWith;
 
