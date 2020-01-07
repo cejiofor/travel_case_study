@@ -35,6 +35,7 @@ public class OrgController {
 	private OrgUserRepository orgUserRepository;
 	@Autowired 
 	private OrgRepository orgRepository;
+	private int test;
 	
 	@GetMapping("/orgSelection")
 	public String orgSelection(Model model, HttpSession session) throws SQLException {

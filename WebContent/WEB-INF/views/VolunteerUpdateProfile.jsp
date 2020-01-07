@@ -17,7 +17,7 @@
 	<body>
 		<%@ include file="sessions.jsp" %>
 		<%@ include file="VolunteerNavigation.html" %>
-		<form:form action="${pageContext.request.contextPath}/updateVolunteer" method="post" modelAttribute="volunteer">
+		<form:form action="${pageContext.request.contextPath}/updateVolunteer" method="post" modelAttribute="user">
 			<fieldset>
 				<legend>Update Volunteer</legend>
 				<p style="color:red;">${errorMessage}</p>
@@ -25,14 +25,14 @@
 					<tr style="display: none;"> 
 						<td><label for="userId">userId</label></td>
 						<td>
-							<form:input path="userId" value="${volunteer.userId}"/>
+							<form:input path="userId" value="${user.userId}"/>
 							<p><form:errors path="userId" class="error"/></p>
 						</td>
 					</tr>
 					<tr>
 						<td><label for="userName">Username/Email</label></td>
 						<td>
-							<form:input path="userName" value="${volunteer.userName}"/>
+							<form:input path="userName" value="${user.userName}"/>
 							<p><form:errors path="userName" class="error"/></p>
 						</td>
 					</tr>

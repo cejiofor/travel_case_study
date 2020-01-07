@@ -69,7 +69,7 @@
 					<tr style="diplay:none;">
 						<td><label for="orgID">Org ID</label></td>
 						<td>
-							<form:input path="orgID" value="${orgUser.orgId}"/>
+							<form:input path="orgID" value="${user.orgId}"/>
 							<p><form:errors path="orgID" class="error"/></p>
 						</td>
 					</tr>

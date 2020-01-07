@@ -17,39 +17,39 @@
 		<table>
 			<tr style="display: none;">
 				<td>User ID</td>
-				<td>${orgUser.orgUserId}</td>
+				<td>${user.orgUserId}</td>
 			</tr>
 			<tr>
 				<td>Username</td>
-				<td>${orgUser.userName}</td>
+				<td>${user.userName}</td>
 			</tr>
 			<tr>
 				<td>First Name</td>
-				<td>${orgUser.firstName}</td>
+				<td>${user.firstName}</td>
 			</tr>
 			<tr>
 				<td>Last Name</td>
-				<td>${orgUser.lastName}</td>
+				<td>${user.lastName}</td>
 			</tr>
 			<tr>
 				<td>Address</td>
-				<td>${orgUser.address}</td>
+				<td>${user.address}</td>
 			</tr>
 			<tr>
 				<td>City</td>
-				<td>${orgUser.city}</td>
+				<td>${user.city}</td>
 			</tr>
 			<tr>
 				<td>State</td>
-				<td>${orgUser.state}</td>
+				<td>${user.state}</td>
 			</tr>
 			<tr>
 				<td>Country</td>
-				<td>${orgUser.country}</td>
+				<td>${user.country}</td>
 			</tr>
 			<tr>
 				<td>PrimeContact</td>
-				<td>${orgUser.isPrimeContact}</td>
+				<td>${user.isPrimeContact}</td>
 			</tr>
 		</table>
 		<a href="${pageContext.request.contextPath}/showOrgUserUpdate">Update Profile</a> 

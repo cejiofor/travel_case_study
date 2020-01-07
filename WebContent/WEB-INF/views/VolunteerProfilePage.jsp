@@ -21,39 +21,39 @@
 		<table>
 			<tr style="display: none;">
 				<td>User ID</td>
-				<td>${volunteer.userId}</td>
+				<td>${user.userId}</td>
 			</tr>
 			<tr>
 				<td>Username</td>
-				<td>${volunteer.userName}</td>
+				<td>${user.userName}</td>
 			</tr>
 			<tr>
 				<td>First Name</td>
-				<td>${volunteer.firstName}</td>
+				<td>${user.firstName}</td>
 			</tr>
 			<tr>
 				<td>Last Name</td>
-				<td>${volunteer.lastName}</td>
+				<td>${user.lastName}</td>
 			</tr>
 			<tr>
 				<td>Address</td>
-				<td>${volunteer.address}</td>
+				<td>${user.address}</td>
 			</tr>
 			<tr>
 				<td>City</td>
-				<td>${volunteer.city}</td>
+				<td>${user.city}</td>
 			</tr>
 			<tr>
 				<td>State</td>
-				<td>${volunteer.state}</td>
+				<td>${user.state}</td>
 			</tr>
 			<tr>
 				<td>Country</td>
-				<td>${volunteer.country}</td>
+				<td>${user.country}</td>
 			</tr>
 			<tr>
 				<td>Skills</td>
-				<td>${volunteer.skills}</td>
+				<td>${user.skills}</td>
 			</tr>
 		</table>
 		<a href="${pageContext.request.contextPath}/showVolunteerUpdate">Update Volunteer Profile</a>

@@ -19,7 +19,7 @@
 	<body>
 		<h1>Registration</h1>
 		<a href="${pageContext.request.contextPath}/">Cancel</a>
-		<form:form action="${pageContext.request.contextPath}/registerVolunteer" method="post" modelAttribute="volunteer">
+		<form:form action="${pageContext.request.contextPath}/registerVolunteer" method="post" modelAttribute="user">
 			<fieldset>
 				<legend>Register Volunteer</legend>
 				<p style="color:red;">${errorMessage}</p>
